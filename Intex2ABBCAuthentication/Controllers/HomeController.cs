@@ -35,7 +35,7 @@ namespace Intex2ABBCAuthentication.Controllers
         public IActionResult SummaryData()
         {
             int pageSize = 100;
-            var x = repo.Crashes.Select(x => x.Freeway == "True");
+            var x = repo.Crashes.ToList();
 
             return View(x);
 

@@ -39,11 +39,14 @@ namespace Intex2ABBCAuthentication
             });
 
             services.AddDbContext<CrashContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("CrashConnection")));
+            {
+                options.UseMySql(Configuration["ConnectionStrings:CrashConnection"]);
+            });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            {
+                options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"]);
+            });
 
             services.AddScoped<ICrashRepository, EFCrashRepository>();
 

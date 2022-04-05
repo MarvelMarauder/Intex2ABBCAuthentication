@@ -17,6 +17,6 @@ namespace Intex2ABBCAuthentication.Models
         {
         }
 
-        public virtual DbSet<CarCrash> carcrash { get; set; }
+        public DbSet<CarCrash> mytable { get; set; }
     }
 }
