@@ -36,10 +36,26 @@ namespace Intex2ABBCAuthentication.Controllers
         {
             int pageSize = 300;
 
-            var x = repo.Crashes
-                .OrderBy(c => c.crash_date)
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize);
+            var x = new CrashViewModel
+            {
+                //CarCrashes = repo.Crashes
+                //.Where(b => b.Category == category || category == null)
+                //.Skip((pageNum - 1) * pageSize)
+                //.Take(pageSize),
+
+                //Link Bullocks form here
+
+                //PageInfo = new PageInfo
+                //{
+                //    TotalNumCrashes =
+                //        (category == null
+                //        ? repo.Crashes.Count()
+                //        : repo.Crashes.Where(x => x.Category == category).Count()),
+                //    CrashesPerPage = pageSize,
+                //    CurrentPage = pageNum
+                //}
+
+            };
 
             return View(x);
 
