@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
 namespace Intex2ABBCAuthentication.Controllers
 {
@@ -56,8 +57,72 @@ namespace Intex2ABBCAuthentication.Controllers
                 //}
 
             };
+        [HttpGet]
+        public IActionResult SummaryInitial()
+        {
 
-            return View(x);
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SummaryInitial(CrashFilter c)
+        {
+            
+            int month = c.month;
+            int year = c.year;
+            string city = c.city;
+            string county = c.county;
+            double severity = c.severity;
+
+            //string stuff = "";
+            //List<string> test = new List<string>();
+
+            //if (year == 0) { test.Add(""); } else { test.Add("x => x.crash_date.Year == year"); }
+            //if (month == 0) { test.Add(""); } else { test.Add("&& x.crash_date.Month == month"); }
+            //if (city == null) { test.Add(""); } else { test.Add("&& x.city == city"); }
+            //if (county == null) { test.Add(""); } else { test.Add("&& x.county = county"); }
+
+
+            MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;database=intexcrashes;user=root;password=usingwindowsisgr8");
+            connection.Open();
+
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "select * from mytable where year(crash_date) = @year && month(crash_date) = @month " +
+                "&& county_name = @county && city = @city && crash_severity_id = @crash";
+            command.Parameters.AddWithValue("@year", year);
+            command.Parameters.AddWithValue("@month", month);
+            command.Parameters.AddWithValue("@county", county);
+            command.Parameters.AddWithValue("@crash", severity);
+            command.Parameters.AddWithValue("@city", city);
+
+            MySqlDataReader stuff = command.ExecuteReader();
+
+            List<int> x = new List<int>();
+            
+
+            while (stuff.Read())
+            {
+                x.Add(stuff.GetInt32(stuff.GetOrdinal("Field1")));
+            }
+
+
+            connection.Close();
+            
+            return View("SummaryData", x);
+        }
+        [HttpGet]
+        public IActionResult SummaryData()
+        {
+            List<int> values = new List<int>();
+            List<CarCrash> final = new List<CarCrash>();
+            values = ViewBag.Ids;
+            int pageSize = 100;
+
+            foreach (int i in values)
+            {
+                final.Add(repo.Crashes.Single(x => x.Field1 == i));
+            }
+
+            return View(final);
 
         }
 
