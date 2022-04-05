@@ -32,10 +32,14 @@ namespace Intex2ABBCAuthentication.Controllers
             return View();
         }
 
-        public IActionResult SummaryData()
+        public IActionResult SummaryData(int pageNum = 1)
         {
-            int pageSize = 100;
-            var x = repo.Crashes.ToList();
+            int pageSize = 300;
+
+            var x = repo.Crashes
+                .OrderBy(c => c.crash_date)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize);
 
             return View(x);
 
