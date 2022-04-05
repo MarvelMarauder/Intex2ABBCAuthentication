@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intex2ABBCAuthentication", "Intex2ABBCAuthentication\Intex2ABBCAuthentication.csproj", "{069A0DAF-9170-406F-9FAD-89F64BEB8066}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{069A0DAF-9170-406F-9FAD-89F64BEB8066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{069A0DAF-9170-406F-9FAD-89F64BEB8066}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{069A0DAF-9170-406F-9FAD-89F64BEB8066}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{069A0DAF-9170-406F-9FAD-89F64BEB8066}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4DB1539C-3B14-4A96-965B-084F1D19AEA4}
+	EndGlobalSection
+EndGlobal
