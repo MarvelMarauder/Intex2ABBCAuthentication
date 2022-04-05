@@ -33,6 +33,30 @@ namespace Intex2ABBCAuthentication.Controllers
             return View();
         }
 
+        public IActionResult SummaryData(int pageNum = 1)
+        {
+            int pageSize = 300;
+
+            var x = new CrashViewModel
+            {
+                //CarCrashes = repo.Crashes
+                //.Where(b => b.Category == category || category == null)
+                //.Skip((pageNum - 1) * pageSize)
+                //.Take(pageSize),
+
+                //Link Bullocks form here
+
+                //PageInfo = new PageInfo
+                //{
+                //    TotalNumCrashes =
+                //        (category == null
+                //        ? repo.Crashes.Count()
+                //        : repo.Crashes.Where(x => x.Category == category).Count()),
+                //    CrashesPerPage = pageSize,
+                //    CurrentPage = pageNum
+                //}
+
+            };
         [HttpGet]
         public IActionResult SummaryInitial()
         {
