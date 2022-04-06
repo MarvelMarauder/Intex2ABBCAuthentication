@@ -46,8 +46,8 @@
         <label>Is a Holiday</label>
         <ValidationMessage For="@(() => c.Holiday)"></ValidationMessage>
         <InputSelect id="Holiday" @bind-Value="c.Holiday" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
+            <option value="False">False</option>
+            <option value="True">True</option>
         </InputSelect>
     </div>
 
@@ -55,8 +55,8 @@
         <label>On a Weekdend</label>
         <ValidationMessage For="@(() => c.Weekend)"></ValidationMessage>
         <InputSelect id="Weekend" @bind-Value="c.Weekend" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
+            <option value="False">False</option>
+            <option value="True">True</option>
         </InputSelect>
     </div>
     <div class="form-group">
@@ -96,8 +96,8 @@
         <label>On a Freeway</label>
         <ValidationMessage For="@(() => c.Freeway)"></ValidationMessage>
         <InputSelect id="Freeway" @bind-Value="c.Freeway" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
+            <option value="False">False</option>
+            <option value="True">True</option>
         </InputSelect>
     </div>
 
@@ -105,15 +105,6 @@
         <label>Mile Point</label>
         <ValidationMessage For="@(() => c.milepoint)"></ValidationMessage>
         <InputNumber class="form-control" @bind-Value="@c.milepoint"></InputNumber>
-    </div>
-
-    <div class="form-group">
-        <label>On a Freeway</label>
-        <ValidationMessage For="@(() => c.Freeway)"></ValidationMessage>
-        <InputSelect id="Freeway" @bind-Value="c.Freeway" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
     </div>
 
     <div class="form-group">
