@@ -17,7 +17,7 @@ namespace Intex2ABBCAuthentication.Models.ViewModels
         public List<int> IntList { get; set; }
         public List<CarCrash> Crashes => FillList(IntList);
 
-        public PageInfo PageInfo => 
+        //public PageInfo PageInfo => 
         
         public List<CarCrash> FillList(List<int> values)
         {
