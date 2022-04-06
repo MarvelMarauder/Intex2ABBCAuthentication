@@ -1,9 +1,9 @@
-﻿@model List<CarCrash>
+﻿@model Intex2ABBCAuthentication.Models.ViewModels.IntegersUsed
 <br />
 <br />
 <h3>Crashes List</h3>
 
-@foreach (CarCrash c in Model)
+@foreach (CarCrash c in Model.Crashes)
 {
     <partial name="CrashSummary" model="c" />
 }
