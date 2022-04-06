@@ -153,6 +153,13 @@ namespace Intex2ABBCAuthentication.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            var blah = repo.Crashes.Single(x => x.Field1 == id);
+            return View(blah);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

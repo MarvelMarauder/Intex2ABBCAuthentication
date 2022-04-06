@@ -1,0 +1,136 @@
+﻿@{
+    ViewData["Title"] = "Details Page";
+}
+
+@model CarCrash
+
+<h3 class="bg-info text-white text-center">Details</h3>
+
+<table class="table table-sm table-bordered table-striped">
+
+    <tbody>
+        @*info on each crash*@
+        <tr><th>Crash ID:</th><td>@Model.crash_id</td></tr>
+        <tr><th>Severity:</th><td>@Model.crash_severity_id</td></tr>
+        <tr><th>Date:</th><td>@Model.crash_date</td></tr>
+        <tr><th>Time:</th><td>@Model.crash_time</td></tr>
+        <tr><th>County:</th><td>@Model.county_name</td></tr>
+        <tr><th>City:</th><td>@Model.city</td></tr>
+        <tr><th>Road:</th><td>@Model.main_road_name</td></tr>
+        <tr><th>Route:</th><td>@Model.route</td></tr>
+        <tr><th>Mile Point:</th><td>@Model.milepoint</td></tr>
+
+        @*Only show the conditions of the crash that are true*@
+
+        @if (Model.Freeway == "True")
+        {
+            <tr><th>Freeway:</th><td>$@Model.Freeway</td></tr>
+
+        }
+        @if (Model.Holiday == "True")
+        {
+            <tr><th>Holiday:</th><td>@Model.Holiday</td></tr>
+        }
+
+        @if (Model.Weekend == "True")
+        {
+            <tr><th>Weekend:</th><td>@Model.Weekend</td></tr>
+        }
+
+        @if (Model.bicyclist_involved == 1.0)
+        {
+            <tr><th>Bicyclist Involvement:</th><td>@Model.bicyclist_involved</td></tr>
+        }
+
+        @if (Model.motorcycle_involved == 1.0)
+        {
+            <tr><th>Motorcycle Involvement:</th><td>@Model.motorcycle_involved</td></tr>
+        }
+
+        @if (Model.commercial_motor_veh_involved == 1.0)
+        {
+            <tr><th>Commercial Vehicle Involement:</th><td>@Model.commercial_motor_veh_involved</td></tr>
+        }
+
+        @if (Model.pedestrian_involved == 1.0)
+        {
+            <tr><th>Pedestrian Involvement:</th><td>@Model.pedestrian_involved</td></tr>
+        }
+
+        @if (Model.dui == 1.0)
+        {
+            <tr><th>Driving Under the Influence:</th><td>@Model.dui</td></tr>
+        }
+
+        @if (Model.drowsy_driving == 1.0)
+        {
+            <tr><th>Drowsy Driving:</th><td>@Model.drowsy_driving</td></tr>
+        }
+
+        @if (Model.distracted_driving == 1.0)
+        {
+            <tr><th>Distracted Driving:</th><td>@Model.distracted_driving</td></tr>
+        }
+
+        @if (Model.domestic_animal_related == 1.0)
+        {
+            <tr><th>Domestic Animal Related:</th><td>@Model.domestic_animal_related</td></tr>
+        }
+
+        @if (Model.wild_animal_related == 1.0)
+        {
+            <tr><th>Wild Animal Related:</th><td>@Model.wild_animal_related</td></tr>
+        }
+
+        @if (Model.improper_restraint == 1.0)
+        {
+            <tr><th>Improper Use of Restraint:</th><td>@Model.improper_restraint</td></tr>
+        }
+
+        @if (Model.unrestrained == 1.0)
+        {
+            <tr><th>Lack of Restraint:</th><td>@Model.unrestrained</td></tr>
+        }
+        @if (Model.work_zone_related == 1.0)
+        {
+            <tr><th>Work Zone Related:</th><td>@Model.work_zone_related</td></tr>
+        }
+
+        @if (Model.intersection_related == 1.0)
+        {
+            <tr><th>Intersection Related:</th><td>@Model.intersection_related</td></tr>
+        }
+
+        @if (Model.night_dark_condition == 1.0)
+        {
+            <tr><th>Night Time(Dark):</th><td>@Model.night_dark_condition</td></tr>
+        }
+
+        @if (Model.older_driver_involved == 1.0)
+        {
+            <tr><th>Older Driver Involvement:</th><td>@Model.older_driver_involved</td></tr>
+        }
+
+        @if (Model.teenage_driver_involved == 1.0)
+        {
+            <tr><th>Teenage Driver Involved:</th><td>@Model.teenage_driver_involved</td></tr>
+        }
+
+        @if (Model.overturn_rollover == 1.0)
+        {
+            <tr><th>Vehicle Overturned:</th><td>@Model.overturn_rollover</td></tr>
+        }
+
+        @if (Model.roadway_departure == 1.0)
+        {
+            <tr><th>Crash Ran Vehicle Off Road:</th><td>@Model.roadway_departure</td></tr>
+        }
+
+        @if (Model.single_vehicle == 1.0)
+        {
+            <tr><th>Single Vehicle Crash:</th><td>@Model.single_vehicle</td></tr>
+        }
+
+    </tbody>
+
+</table>

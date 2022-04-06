@@ -91,7 +91,14 @@ namespace Intex2ABBCAuthentication
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    "details",
+                    "details/{fieldid}",
+                    new { Controller = "Home", action = "Details" });
                 endpoints.MapRazorPages();
+
+
 
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
