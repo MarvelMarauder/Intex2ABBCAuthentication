@@ -57,6 +57,8 @@ namespace Intex2ABBCAuthentication.Controllers
                 //}
 
             };
+            return View();
+        }
         [HttpGet]
         public IActionResult SummaryInitial()
         {
