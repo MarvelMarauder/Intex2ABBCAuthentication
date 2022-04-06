@@ -17,9 +17,14 @@ namespace Intex2ABBCAuthentication.Models.ViewModels
         public List<int> IntList { get; set; }
         public List<CarCrash> Crashes => FillList(IntList);
 
-        public PageInfo PageInfo => 
-        
-        public List<CarCrash> FillList(List<int> values)
+        public PageInfo PageInfo => new PageInfo
+        {
+            TotalNumCrashes = IntList.Count(),
+            CrashesPerPage = pageSize,
+            CurrentPage = 1
+        };
+
+    public List<CarCrash> FillList(List<int> values)
         {
             List<CarCrash> hope = new List<CarCrash>();
             foreach (int i in values)
