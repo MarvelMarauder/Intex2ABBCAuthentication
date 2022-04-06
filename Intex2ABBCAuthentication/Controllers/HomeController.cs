@@ -136,6 +136,14 @@ namespace Intex2ABBCAuthentication.Controllers
             return View(blah);
         }
 
+        [HttpGet]
+        public IActionResult EditAdd(int fieldid)
+        {
+
+            var blah = repo.Crashes.Single(x => x.Field1 == fieldid);
+            return View(blah);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
