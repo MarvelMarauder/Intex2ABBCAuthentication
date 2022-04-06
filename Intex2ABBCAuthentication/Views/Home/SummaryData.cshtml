@@ -3,12 +3,12 @@
 <br />
 <h3>Crashes List</h3>
 
-@foreach (CarCrash c in Model.Crashes)
+@foreach (CarCrash c in Model.Crashes[ViewBag.PageNum-1])
 {
     <partial name="CrashSummary" model="c" />
 }
 
-@*<div page-turn="@Model.PageInfo" page-action="SummaryData"
+<div page-turn="@Model.PageInfo" page-action="SummaryData"
      page-class="btn" page-class-normal="bg-light"
      page-class-selected="btn-primary" class="btn-group pull-right m-1"
-     page-class-enabled="true"></div>*@
+     page-class-enabled="true"></div>
