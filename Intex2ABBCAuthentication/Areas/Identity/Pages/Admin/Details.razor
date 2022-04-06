@@ -1,0 +1,75 @@
+﻿@page "/admin/crashes/details/{id:long}"
+
+<h3 class="bg-info text-white text-center">Details</h3>
+
+
+<table class="table table-sm table-bordered table-striped">
+
+    <tbody>
+        @*info on each crash*@
+        <tr><th>Crash ID:</th><td>@c.crash_id</td></tr>
+        <tr><th>Severity:</th><td>@c.crash_severity_id</td></tr>
+        <tr><th>Date:</th><td>@c.crash_date</td></tr>
+        <tr><th>Time:</th><td>@c.crash_time</td></tr>
+        <tr><th>Holiday:</th><td>@c.Holiday</td></tr>
+        <tr><th>Weekend:</th><td>@c.Weekend</td></tr>
+        <tr><th>County:</th><td>@c.county_name</td></tr>
+        <tr><th>City:</th><td>@c.city</td></tr>
+        <tr><th>Road:</th><td>@c.main_road_name</td></tr>
+        <tr><th>Route:</th><td>@c.route</td></tr>
+        <tr><th>Freeway:</th><td>$@c.Freeway</td></tr>
+        <tr><th>Mile Point:</th><td>@c.milepoint</td></tr>
+
+        @*conditions of the crash*@
+        <tr><th>Bicyclist Involvement:</th><td>@c.bicyclist_involved</td></tr>
+        <tr><th>Motorcycle Involvement:</th><td>@c.motorcycle_involved</td></tr>
+        <tr><th>Commercial Vehicle Involement:</th><td>@c.commercial_motor_veh_involved</td></tr>
+        <tr><th>Pedestrian Involvement:</th><td>@c.pedestrian_involved</td></tr>
+
+        <tr><th>Driving Under the Influence:</th><td>@c.dui</td></tr>
+        <tr><th>Drowsy Driving:</th><td>@c.drowsy_driving</td></tr>
+        <tr><th>Distracted Driving:</th><td>@c.distracted_driving</td></tr>
+
+        <tr><th>Domestic Animal Related:</th><td>@c.domestic_animal_related</td></tr>
+        <tr><th>Wild Animal Related:</th><td>@c.wild_animal_related</td></tr>
+
+        <tr><th>Improper Use of Restraint:</th><td>@c.improper_restraint</td></tr>
+        <tr><th>Lack of Restraint:</th><td>@c.unrestrained</td></tr>
+
+        <tr><th>Work Zone Related:</th><td>@c.work_zone_related</td></tr>
+        <tr><th>Intersection Related:</th><td>@c.intersection_related</td></tr>
+        <tr><th>Night Time(Dark):</th><td>@c.night_dark_condition</td></tr>
+        <tr><th>Older Driver Involvement:</th><td>@c.older_driver_involved</td></tr>
+        <tr><th>Teenage Driver Involved:</th><td>@c.teenage_driver_involved</td></tr>
+        <tr><th>Vehicle Overturned:</th><td>@c.overturn_rollover</td></tr>
+        <tr><th>Crash Ran Vehicle Off Road:</th><td>@c.roadway_departure</td></tr>
+        <tr><th>Single Vehicle Crash:</th><td>@c.single_vehicle</td></tr>
+
+
+
+    </tbody>
+
+</table>
+
+<NavLink class="btn btn-warning" href="@EditUrl">Edit</NavLink>
+<NavLink class="btn btn-secondary" href="/admin/books">Back</NavLink>
+
+
+
+@code {
+    [Inject]
+    public ICrashRepository repo { get; set; }
+    [Parameter]
+    public long Id { get; set; }
+    public CarCrash c { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        c = repo.Crashes.FirstOrDefault(x => x.crash_id == Id);
+    }
+
+    public string EditUrl => $"admin/crashes/edit/{c.crash_id}";
+
+
+
+}
