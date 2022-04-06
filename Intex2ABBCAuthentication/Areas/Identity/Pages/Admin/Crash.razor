@@ -1,5 +1,5 @@
 ﻿@page "/admin/crashes"
-@page "/admin"
+@page "/admin/"
 @inherits OwningComponentBase<ICrashRepository>
 
 <table class="table table-sm table-striped table-bordered w-auto">
@@ -72,7 +72,7 @@
 
     public async Task UpdateData()
     {
-        CrashData = await repo.Crashes.ToListAsync();
+        CrashData = await repo.Crashes.Take(100).ToListAsync();
 
     }
 
