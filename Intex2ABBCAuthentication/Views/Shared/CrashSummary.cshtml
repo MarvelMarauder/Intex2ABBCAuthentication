@@ -15,12 +15,13 @@
         <li class="text-lg-left">County: @Model.county_name</li>
         <li class="text-lg-left">Day of the Week: @Model.crash_date.DayOfWeek</li>
         <li class="text-lg-left">Holiday: @Model.Holiday</li>
+        <a asp-controller="Home" asp-action="Details" asp-route-fieldid="@Model.Field1">View Details</a>
     </ul>
 
     @if (User.Identity.IsAuthenticated == true)
     {
-        <a asp-controller="Home" asp-action="EditCrash" asp-route-appointmentid="@Model.Field1">Edit</a>
-        <a asp-controller="Home" asp-action="DeleteCrash" asp-route-appointmentid="@Model.Field1">Delete</a>
+        <a asp-controller="Home" asp-action="EditCrash" asp-route-fieldid="@Model.Field1">Edit</a>
+        <a asp-controller="Home" asp-action="DeleteCrash" asp-route-fieldid="@Model.Field1">Delete</a>
     }
 
 </div>

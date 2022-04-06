@@ -35,7 +35,7 @@ namespace Intex2ABBCAuthentication.Controllers
 
         public IActionResult SummaryData(int pageNum = 1)
         {
-            int pageSize = 300;
+            int pageSize = 100;
 
             var x = new CrashViewModel
             {
