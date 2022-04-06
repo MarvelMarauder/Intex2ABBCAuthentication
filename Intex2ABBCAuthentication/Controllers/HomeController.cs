@@ -32,33 +32,6 @@ namespace Intex2ABBCAuthentication.Controllers
         {
             return View();
         }
-
-        public IActionResult SummaryData(int pageNum = 1)
-        {
-            int pageSize = 100;
-
-            var x = new CrashViewModel
-            {
-                //CarCrashes = repo.Crashes
-                //.Where(b => b.Category == category || category == null)
-                //.Skip((pageNum - 1) * pageSize)
-                //.Take(pageSize),
-
-                //Link Bullocks form here
-
-                //PageInfo = new PageInfo
-                //{
-                //    TotalNumCrashes =
-                //        (category == null
-                //        ? repo.Crashes.Count()
-                //        : repo.Crashes.Where(x => x.Category == category).Count()),
-                //    CrashesPerPage = pageSize,
-                //    CurrentPage = pageNum
-                //}
-
-            };
-            return View();
-        }
         [HttpGet]
         public IActionResult SummaryInitial()
         {
@@ -105,6 +78,13 @@ namespace Intex2ABBCAuthentication.Controllers
             return View(x);
             
         }
+
+        [HttpGet]
+        public IActionResult SummaryData(int pageNum = 1)
+        {
+            ViewBag.PageNum = pageNum;
+            return View();
+        }
         [HttpPost]
         public IActionResult SummaryData(CrashFilter c)
         {
@@ -139,7 +119,7 @@ namespace Intex2ABBCAuthentication.Controllers
 
             connection.Close();
 
-            var things = new IntegersUsed(repo)
+            var things = new IntegersUsed(repo, 10)
             {
                 IntList = x
             };
@@ -147,16 +127,12 @@ namespace Intex2ABBCAuthentication.Controllers
             return View(things);
 
         }
-        [HttpGet]
-        public IActionResult SummaryData()
-        {
-            return View();
-        }
+        
 
         [HttpGet]
-        public IActionResult Details(int id)
+        public IActionResult Details(int fieldid)
         {
-            var blah = repo.Crashes.Single(x => x.Field1 == id);
+            var blah = repo.Crashes.Single(x => x.Field1 == fieldid);
             return View(blah);
         }
 

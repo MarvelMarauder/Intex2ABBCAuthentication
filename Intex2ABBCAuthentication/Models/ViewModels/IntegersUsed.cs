@@ -15,18 +15,45 @@ namespace Intex2ABBCAuthentication.Models.ViewModels
             pageSize = page;
         }
         public List<int> IntList { get; set; }
-        public List<CarCrash> Crashes => FillList(IntList);
 
-        //public PageInfo PageInfo => 
-        
-        public List<CarCrash> FillList(List<int> values)
+        public PageInfo PageInfo => new PageInfo
         {
+            TotalNumCrashes = IntList.Count(),
+            CrashesPerPage = pageSize,
+            CurrentPage = 1
+        };
+
+        public List<object> Crashes => FillList(IntList, pageSize);
+
+        public List<object> FillList(List<int> values, int p)
+        {
+            int i = 0;
             List<CarCrash> hope = new List<CarCrash>();
-            foreach (int i in values)
+            List<object> master = new List<object>();
+
+            int remainder = values.Count() % p;
+
+            for (int s = 1; s<=PageInfo.TotalPages; s++)
             {
-                hope.Add(repo.Crashes.Single(x => x.Field1 == i));
+                
+                foreach (int b in values.GetRange(i, i+p-1))
+                {
+                    hope.Add(repo.Crashes.Single(x => x.Field1 == b));
+                }
+                master.Add(hope);
+                hope.Clear();
+                if (i+p > values.Count()-1)
+                {
+                    p = remainder-1;
+                }
+                else
+                {
+                    i = i + p;
+                }
             }
-            return hope;
+
+            
+            return master;
         }
             
 }
