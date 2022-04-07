@@ -3,7 +3,12 @@
 <br />
 <h3>Crashes List</h3>
 
-<vc:filter/>
+<div class="row">
+    <div class="col-3">
+        @await Component.InvokeAsync("Filter", new {}) 
+    </div>
+
+</div>
 
 @foreach (CarCrash c in Model.Crashes2)
 {
