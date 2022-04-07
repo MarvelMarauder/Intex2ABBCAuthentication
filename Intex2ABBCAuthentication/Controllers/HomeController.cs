@@ -18,6 +18,13 @@ namespace Intex2ABBCAuthentication.Controllers
 
     public class HomeController : Controller
     {
+        public string City { get; set; }
+        public string County { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
+        public double Severity { get; set; }
+        public CrashFilter filter { get; set; }
+
         private readonly ILogger<HomeController> _logger;
         private ICrashRepository repo;
         private InferenceSession _session;
@@ -67,49 +74,14 @@ namespace Intex2ABBCAuthentication.Controllers
         [HttpGet]
         public IActionResult SummaryInitial()
         {
-
-            return View();
-        }
-        [HttpPost]
-        public IActionResult SummaryInitial(CrashFilter c)
-        {
-            
-            int month = c.month;
-            int year = c.year;
-            string city = c.city;
-            string county = c.county;
-            double severity = c.severity;
-
-            MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;database=intexcrashes;user=root;password=usingwindowsisgr8");
-            connection.Open();
-
-            MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "select * from mytable where year(crash_date) = @year && month(crash_date) = @month " +
-                "&& county_name = @county && city = @city && crash_severity_id = @crash";
-            command.Parameters.AddWithValue("@year", year);
-            command.Parameters.AddWithValue("@month", month);
-            command.Parameters.AddWithValue("@county", county);
-            command.Parameters.AddWithValue("@crash", severity);
-            command.Parameters.AddWithValue("@city", city);
-
-            MySqlDataReader stuff = command.ExecuteReader();
-
-            List<int> x = new List<int>();
-
-
-            while (stuff.Read())
+            var things = new IntegersUsed(repo, 10)
             {
-                x.Add(stuff.GetInt32(stuff.GetOrdinal("Field1")));
-            }
+                Crashes2 = repo.Crashes.AsEnumerable()
+            };
 
-
-            connection.Close();
-
-
-
-            return View(x);
-            
+            return View("SummaryData", things);
         }
+
 
         [HttpGet]
         public IActionResult SummaryData(int pageNum = 1)
@@ -120,40 +92,25 @@ namespace Intex2ABBCAuthentication.Controllers
         [HttpPost]
         public IActionResult SummaryData(CrashFilter c)
         {
+            filter = c;
             int month = c.month;
             int year = c.year;
             string city = c.city;
             string county = c.county;
             double severity = c.severity;
 
-            MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;database=intexcrashes;user=root;password=usingwindowsisgr8");
-            connection.Open();
-
-            MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "select * from mytable where year(crash_date) = @year && month(crash_date) = @month " +
-                "&& county_name = @county && city = @city && crash_severity_id = @crash";
-            command.Parameters.AddWithValue("@year", year);
-            command.Parameters.AddWithValue("@month", month);
-            command.Parameters.AddWithValue("@county", county);
-            command.Parameters.AddWithValue("@crash", severity);
-            command.Parameters.AddWithValue("@city", city);
-
-            MySqlDataReader stuff = command.ExecuteReader();
-
-            List<int> x = new List<int>();
-
-
-            while (stuff.Read())
-            {
-                x.Add(stuff.GetInt32(stuff.GetOrdinal("Field1")));
-            }
-
-
-            connection.Close();
+            var queryCrash = from crash in repo.Crashes
+                                       where 
+                                       crash.crash_date.Month == month && 
+                                       crash.crash_date.Year == year &&
+                                       crash.city == city &&
+                                       crash.county_name == county &&
+                                       crash.crash_severity_id == severity
+                                       select crash;
 
             var things = new IntegersUsed(repo, 10)
             {
-                IntList = x
+                Crashes2 = queryCrash
             };
 
             return View(things);
@@ -169,17 +126,69 @@ namespace Intex2ABBCAuthentication.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditAdd(int fieldid)
+        public IActionResult AddCrash()
+        {
+            return View("EditAdd");
+        }
+        [HttpPost]
+        public IActionResult AddCrash(CarCrash c)
+        {
+            if (ModelState.IsValid)
+            {
+                var i = repo.Crashes.Count()+8251;
+                c.Field1 = i + 1;
+                c.crash_id = c.Field1;
+                repo.CreateCrash(c);
+                return View("Confirmation", c);
+            }
+            else //if invalid, send back to the form and see error messages
+            {
+                return View("EditAdd",c);
+            }
+        }
+        [HttpGet]
+        public IActionResult EditCrash(int fieldid)
+        {
+            var stuff = repo.Crashes.Single(x => x.Field1 == fieldid);
+            return View("EditAdd", stuff);
+        }
+        [HttpPost]
+        public IActionResult EditCrash(CarCrash c)
+        {
+            if (ModelState.IsValid)
+            {
+                repo.SaveCrash(c);
+                return View("SummaryInitial", c);
+            }
+            else
+            {
+                return View("EditAdd", c);
+            }
+        }
+        [HttpGet]
+        public IActionResult Delete(int fieldId)
+        {
+            var to_delete = repo.Crashes.Single(x => x.Field1 == fieldId);
+
+            return View("Confirmation", to_delete);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(CarCrash cc)
         {
 
-           var blah = repo.Crashes.Single(x => x.Field1 == fieldid);
-            return View(blah);
+            repo.DeleteCrash(cc);
+
+            return RedirectToAction("SummaryData");
         }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
