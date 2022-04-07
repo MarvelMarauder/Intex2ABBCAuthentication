@@ -15,7 +15,7 @@
         <li class="text-lg-left">County: @Model.county_name</li>
         <li class="text-lg-left">Day of the Week: @Model.crash_date.DayOfWeek</li>
         <li class="text-lg-left">Holiday: @Model.Holiday</li>
-        <a asp-controller="Home" asp-action="Details" asp-route-fieldid="@Model.Field1">View Details</a>
+        <li><a asp-controller="Home" asp-action="Details" asp-route-fieldid="@Model.Field1">View Details</a></li>
     </ul>
 
     @if (User.Identity.IsAuthenticated == true)
