@@ -37,7 +37,7 @@ namespace Intex2ABBCAuthentication.Controllers
 
         }
 
-        
+
 
         public IActionResult Index()
         {
@@ -57,7 +57,7 @@ namespace Intex2ABBCAuthentication.Controllers
         }
         [HttpPost]
         public IActionResult Prediction(CarCrash data)
-        { 
+        {
             var result = _session.Run(new List<NamedOnnxValue>
                 {
                 NamedOnnxValue.CreateFromTensor("float_input", data.AsTensor())
@@ -83,7 +83,7 @@ namespace Intex2ABBCAuthentication.Controllers
         //    return View("SummaryData", things);
         //}
 
-        public PageInfo GetPageInfo(int totalItems, int currentPage = 1,int pageSize = 10,int maxPages = 10)
+        public PageInfo GetPageInfo(int totalItems, int currentPage = 1, int pageSize = 10, int maxPages = 10)
         {
             var totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
 
@@ -154,33 +154,23 @@ namespace Intex2ABBCAuthentication.Controllers
         public IActionResult SummaryData(int pageNum = 1)
         {
             int pageSize = 10;
-            var things = new CrashViewModel();
-            if (ViewBag.Crashes == null) 
+
+            var things = new CrashViewModel()
             {
-                things = new CrashViewModel()
-                {
-                    CarCrashes = repo.Crashes.AsEnumerable()
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize),
-                    PageInfo = GetPageInfo(repo.Crashes.Count(), pageNum, 10, 10)
-                };
-            }
-            else
-            {
-                things = new CrashViewModel()
-                {
-                    CarCrashes = ViewBag.Crashes
+                CarCrashes = repo.Crashes
+                    .AsEnumerable()
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
-                    PageInfo = GetPageInfo(ViewBag.Crashes.Count(), pageNum, 10, 10)
-                };
-            }
+                PageInfo = GetPageInfo(repo.Crashes.Count(), pageNum, 10, 10)
+            };
 
             ViewBag.PageNum = pageNum;
             return View(things);
         }
+
+
         [HttpPost]
-        public IActionResult SummaryData(int m, int y, string c, string co, double s)
+        public IActionResult SummaryData(int m = 0, int y = 0, string c = null, string co = null, double s = 0)
         {
             var pageNum = 1;
             var pageSize = 10;
@@ -191,17 +181,41 @@ namespace Intex2ABBCAuthentication.Controllers
             string county = co;
             double severity = s;
 
-            var queryCrash = from crash in repo.Crashes
-                                       where 
-                                       crash.crash_date.Month == month && 
-                                       crash.crash_date.Year == year &&
-                                       crash.city == city &&
-                                       crash.county_name == county &&
-                                       crash.crash_severity_id == severity
-                                       select crash;
+            IEnumerable<CarCrash> bigQuery;
+
+
+            if (month != 0 && year == 0 && city == null && county == null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month select crash;
+            }
+            else if (month != 0 && year != 0 && city == null && county == null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year select crash;
+            }
+            else if (month != 0 && year != 0 && city != null && county == null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year && crash.city == city select crash;
+            }
+            else if (month != 0 && year != 0 && city != null && county != null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year && crash.city == city && crash.county_name == county select crash;
+            }
+            else //(month != 0 || year != 0 || city != null || county != null || severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year && crash.city == city && crash.county_name == county && crash.crash_severity_id == severity select crash;
+            }
+
+            var monthQuery = from crash in repo.Crashes where crash.crash_date.Month == month select crash;
+            var yearQuery = from crash in repo.Crashes where crash.crash_date.Year == year select crash;
+            var cityQuery = from crash in repo.Crashes where crash.city == city select crash;
+            var countyQuery = from crash in repo.Crashes where crash.county_name == county select crash;
+            var severityQuery = from crash in repo.Crashes where crash.crash_severity_id == severity select crash;
+
+            var queryCrash = monthQuery.Concat(yearQuery).Concat(cityQuery).Concat(countyQuery).Concat(severityQuery);
+
             var things = new CrashViewModel()
             {
-                CarCrashes = queryCrash
+                CarCrashes = bigQuery
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
                 PageInfo = GetPageInfo(queryCrash.Count(), pageNum, 10, 10)
@@ -235,7 +249,7 @@ namespace Intex2ABBCAuthentication.Controllers
                 c.Field1 = i + 1;
                 c.crash_id = c.Field1;
                 repo.CreateCrash(c);
-                return View("Confirmation", c);
+                return View("EditAdd", c);
             }
             else //if invalid, send back to the form and see error messages
             {
