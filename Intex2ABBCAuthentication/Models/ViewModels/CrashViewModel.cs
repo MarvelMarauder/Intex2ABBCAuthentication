@@ -7,7 +7,8 @@ namespace Intex2ABBCAuthentication.Models.ViewModels
 {
     public class CrashViewModel
     {
-        public IQueryable<CarCrash> CarCrashes { get; set; }
+        public IEnumerable<CarCrash> CarCrashes { get; set; }
         public PageInfo PageInfo { get; set; }
+        public IEnumerable<CarCrashes> Results { get; set; }
     }
 }

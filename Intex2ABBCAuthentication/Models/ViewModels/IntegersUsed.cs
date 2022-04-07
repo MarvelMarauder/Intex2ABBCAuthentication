@@ -16,6 +16,7 @@ namespace Intex2ABBCAuthentication.Models.ViewModels
         }
 
         public IEnumerable<CarCrash> Crashes2 { get; set; }
+        public PageInfo PageInfo { get; set; }
         public CrashFilter filter { get; set; }
         
     }

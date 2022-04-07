@@ -38,7 +38,7 @@ namespace Intex2ABBCAuthentication.Infrastructure
 
             TagBuilder final = new TagBuilder("div");
 
-            for (int i = 1; i <= PageTurn.TotalPages; i++)
+            for (int i = PageTurn.StartPage; i <= PageTurn.EndPage; i++)
             {
                 TagBuilder tb = new TagBuilder("a");
 

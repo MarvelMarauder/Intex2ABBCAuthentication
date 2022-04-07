@@ -1,21 +1,41 @@
-﻿@model Intex2ABBCAuthentication.Models.ViewModels.IntegersUsed
+﻿@model Intex2ABBCAuthentication.Models.ViewModels.CrashViewModel
 <br />
 <br />
 <h3>Crashes List</h3>
 
 <div class="row">
     <div class="col-3">
-        @await Component.InvokeAsync("Filter", new {}) 
+        <form asp-action="SummaryData" method="post">
+            <label>Year</label>
+            <input name="y"/>
+
+            <label>Month</label>
+            <input name="m"/>
+
+            <label>City</label>
+            <input name="c"/>
+
+            <label>County</label>
+            <input name="co"/>
+
+            <label>Severity</label>
+            <input name="s"/>
+
+            <div class="float-end">
+                <input class="btn btn-primary" type="submit" value="Filter Results" />
+            </div>
+
+        </form>
     </div>
 
 </div>
 
-@foreach (CarCrash c in Model.Crashes2)
+@foreach (CarCrash c in Model.CarCrashes)
 {
     <partial name="CrashSummary" model="c" />
 }
 
-@*<div page-turn="@Model.PageInfo" page-action="SummaryData"
+<div page-turn="@Model.PageInfo" page-action="SummaryData"
      page-class="btn" page-class-normal="bg-light"
      page-class-selected="btn-primary" class="btn-group pull-right m-1"
-     page-class-enabled="true"></div>*@
+     page-class-enabled="true"></div>

@@ -100,6 +100,11 @@ namespace Intex2ABBCAuthentication
                     new { Controller = "Home", action = "Details" });
                 endpoints.MapRazorPages();
 
+                endpoints.MapControllerRoute(
+                    "paging",
+                    "SummaryData/{pageNum}",
+                    new { Controller = "Home", action = "SummaryData" });
+
 
 
                 endpoints.MapBlazorHub();
