@@ -9,9 +9,5 @@ namespace Intex2ABBCAuthentication.Models.ViewModels
     {
         public IEnumerable<CarCrash> CarCrashes { get; set; }
         public PageInfo PageInfo { get; set; }
-<<<<<<< Updated upstream
-=======
-        public IEnumerable<CarCrash> Results { get; set; }
->>>>>>> Stashed changes
     }
 }
