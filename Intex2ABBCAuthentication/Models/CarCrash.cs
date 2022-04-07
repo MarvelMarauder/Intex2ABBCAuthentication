@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.ML.OnnxRuntime.Tensors;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -79,6 +80,18 @@ namespace Intex2ABBCAuthentication.Models
         public string Freeway { get; set; }
         [Required]
         public int crash_id { get; set; }
+
+        public Tensor<float> AsTensor()
+        {
+            float[] data = new float[]
+            {(float)bicyclist_involved, (float)commercial_motor_veh_involved, (float)distracted_driving, (float)domestic_animal_related,
+                (float)drowsy_driving, (float)dui, (float)improper_restraint, (float)intersection_related, (float)motorcycle_involved, (float)night_dark_condition,
+                (float)older_driver_involved, (float)overturn_rollover, (float)pedestrian_involved, (float)roadway_departure, (float)single_vehicle,
+                (float)teenage_driver_involved, (float)unrestrained, (float)wild_animal_related, (float)work_zone_related
+            };
+            int[] dimensions = new int[] { 1, 19 };
+            return new DenseTensor<float>(data, dimensions);
+        }
 
     }
 }
