@@ -10,8 +10,65 @@
 
     <tbody>
         @*info on each crash*@
-        <tr><th>Crash ID:</th><td>@Model.crash_id</td></tr>
-        <tr><th>Severity:</th><td>@Model.crash_severity_id</td></tr>
+        <tr>
+            <th>Crash ID:</th>
+            <td>@Model.crash_id</td>
+        </tr>
+
+
+        @if (@Model.crash_severity_id == 1.0)
+        {
+            <tr>
+                <td>
+                <th>Severity:</th>
+                <td>
+                    No Injury
+                </td>
+            </tr>
+        }
+        @if (@Model.crash_severity_id == 2.0)
+        {
+            <tr>
+                <td>
+                <th>Severity:</th>
+                <td>
+                    Possible Injury
+                </td>
+            </tr>
+        }
+        @if (@Model.crash_severity_id == 3.0)
+        {
+            <tr>
+                <td>
+                <th>Severity:</th>
+                <td>
+                    Suspected Minor Injury
+                </td>
+            </tr>
+        }
+        @if (@Model.crash_severity_id == 4.0)
+        {
+            <tr>
+                <td>
+                <th>Severity:</th>
+                <td>
+                    Suspected Major Injury
+                </td>
+            </tr>
+        }
+        @if (@Model.crash_severity_id == 5.0)
+        {
+            <tr>
+                <td>
+                <th>Severity:</th>
+                <td>
+                    Fatal
+                </td>
+            </tr>
+        }
+
+
+
         <tr><th>Date:</th><td>@Model.crash_date.Month/@Model.crash_date.Day/@Model.crash_date.Year</td></tr>
         <tr><th>Time:</th><td>@Model.crash_time</td></tr>
         <tr><th>County:</th><td>@Model.county_name</td></tr>
@@ -132,4 +189,4 @@
 
     </tbody>
 
-</table>
+    </table>
