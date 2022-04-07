@@ -71,33 +71,125 @@ namespace Intex2ABBCAuthentication.Controllers
 
             return View(data);
         }
-        [HttpGet]
-        public IActionResult SummaryInitial()
+
+        //[HttpGet]
+        //public IActionResult SummaryInitial()
+        //{
+        //    var things = new IntegersUsed(repo, 10)
+        //    {
+        //        Crashes2 = repo.Crashes.AsEnumerable()
+        //    };
+
+        //    return View("SummaryData", things);
+        //}
+
+        public PageInfo GetPageInfo(int totalItems, int currentPage = 1,int pageSize = 10,int maxPages = 10)
         {
-            var things = new IntegersUsed(repo, 10)
+            var totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
+
+            // ensure current page isn't out of range
+            if (currentPage < 1)
             {
-                Crashes2 = repo.Crashes.AsEnumerable()
+                currentPage = 1;
+            }
+            else if (currentPage > totalPages)
+            {
+                currentPage = totalPages;
+            }
+
+            int startPage, endPage;
+            if (totalPages <= maxPages)
+            {
+                // total pages less than max so show all pages
+                startPage = 1;
+                endPage = totalPages;
+            }
+            else
+            {
+                // total pages more than max so calculate start and end pages
+                var maxPagesBeforeCurrentPage = (int)Math.Floor((decimal)maxPages / (decimal)2);
+                var maxPagesAfterCurrentPage = (int)Math.Ceiling((decimal)maxPages / (decimal)2) - 1;
+                if (currentPage <= maxPagesBeforeCurrentPage)
+                {
+                    // current page near the start
+                    startPage = 1;
+                    endPage = maxPages;
+                }
+                else if (currentPage + maxPagesAfterCurrentPage >= totalPages)
+                {
+                    // current page near the end
+                    startPage = totalPages - maxPages + 1;
+                    endPage = totalPages;
+                }
+                else
+                {
+                    // current page somewhere in the middle
+                    startPage = currentPage - maxPagesBeforeCurrentPage;
+                    endPage = currentPage + maxPagesAfterCurrentPage;
+                }
+            }
+
+            // calculate start and end item indexes
+            var startIndex = (currentPage - 1) * pageSize;
+            var endIndex = Math.Min(startIndex + pageSize - 1, totalItems - 1);
+
+            // create an array of pages that can be looped over
+            var pages = Enumerable.Range(startPage, (endPage + 1) - startPage);
+
+            // update object instance with all pager properties required by the view
+            var PageInfo = new PageInfo
+            {
+                TotalNumCrashes = totalItems,
+                CrashesPerPage = pageSize,
+                CurrentPage = currentPage,
+                StartPage = startPage,
+                EndPage = endPage,
+                StartIndex = startIndex,
+                EndIndex = endIndex,
+                Pages = pages
             };
-
-            return View("SummaryData", things);
+            return PageInfo;
         }
-
-
         [HttpGet]
         public IActionResult SummaryData(int pageNum = 1)
         {
+            int pageSize = 10;
+            var things = new CrashViewModel();
+            if (ViewBag.Crashes == null) 
+            {
+                things = new CrashViewModel()
+                {
+                    CarCrashes = repo.Crashes.AsEnumerable()
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+                    PageInfo = GetPageInfo(repo.Crashes.Count(), pageNum, 10, 10)
+                };
+            }
+            else
+            {
+                things = new CrashViewModel()
+                {
+                    CarCrashes = ViewBag.Crashes
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize),
+                    PageInfo = GetPageInfo(ViewBag.Crashes.Count(), pageNum, 10, 10)
+                };
+            }
+
             ViewBag.PageNum = pageNum;
-            return View();
+            return View(things);
         }
         [HttpPost]
-        public IActionResult SummaryData(CrashFilter c)
+        public IActionResult SummaryData(int m, int y, string c, string co, double s)
         {
-            filter = c;
-            int month = c.month;
-            int year = c.year;
-            string city = c.city;
-            string county = c.county;
-            double severity = c.severity;
+            var pageNum = 1;
+            var pageSize = 10;
+
+            int month = m;
+            int year = y;
+            string city = c;
+            string county = co;
+            double severity = s;
 
             var queryCrash = from crash in repo.Crashes
                                        where 
@@ -107,11 +199,15 @@ namespace Intex2ABBCAuthentication.Controllers
                                        crash.county_name == county &&
                                        crash.crash_severity_id == severity
                                        select crash;
-
-            var things = new IntegersUsed(repo, 10)
+            var things = new CrashViewModel()
             {
-                Crashes2 = queryCrash
+                CarCrashes = queryCrash
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+                PageInfo = GetPageInfo(queryCrash.Count(), pageNum, 10, 10)
             };
+
+            ViewBag.Crashes = queryCrash;
 
             return View(things);
 
