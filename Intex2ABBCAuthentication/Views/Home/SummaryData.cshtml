@@ -2,40 +2,104 @@
 <br />
 <br />
 <h3>Crashes List</h3>
+<body>
+    <div class="row">
+        <div class="col-3">
+            <form asp-action="SummaryData" method="post">
 
-<div class="row">
-    <div class="col-3">
-        <form asp-action="SummaryData" method="post">
-            <label>Year</label>
-            <input name="y"/>
+                <div class="form-group">
+                    <label for="y">Year</label>
+                    <input type="number" maxlength="10" min="2016" class="form-control" id="y" name="y" aria-describedby="emailHelp" placeholder="Enter Year">
+                </div>
 
-            <label>Month</label>
-            <input name="m"/>
+                @*<label>Year</label>
+        <input name="y" />*@
 
-            <label>City</label>
-            <input name="c"/>
 
-            <label>County</label>
-            <input name="co"/>
+                @*<div class="form-group">
+            <label for="m">Month</label>
+            <input type="text" class="form-control" id="m" name="m" aria-describedby="emailHelp" placeholder="Select Month">
+        </div>*@
 
-            <label>Severity</label>
-            <input name="s"/>
+                <div class="form-group">
+                    <label for="m">Month</label>
+                    <select name="m" class="form-select" aria-label="Default select example">
+                        <option selected disabled style="color:#808080">Select Month</option>
+                        <option name="m" value="1">January</option>
+                        <option name="m" value="2">February</option>
+                        <option name="m" value="3">March</option>
+                        <option name="m" value="4">April</option>
+                        <option name="m" value="5">May</option>
+                        <option name="m" value="6">June</option>
+                        <option name="m" value="7">July</option>
+                        <option name="m" value="8">August</option>
+                        <option name="m" value="9">September</option>
+                        <option name="m" value="10">October</option>
+                        <option name="m" value="11">November</option>
+                        <option name="m" value="12">December</option>
+                    </select>
+                </div>
+                @*<label>Month</label>
+        <input name="m" />*@
 
-            <div class="float-end">
-                <input class="btn btn-primary" type="submit" value="Filter Results" />
-            </div>
+                <div class="form-group">
+                    <label for="c">City</label>
+                    <input type="text" class="form-control" id="c" name="c" aria-describedby="emailHelp" placeholder="Enter City">
+                </div>
 
-        </form>
+                @*<label>City</label>
+        <input name="c" />*@
+
+                <div class="form-group">
+                    <label for="co">County</label>
+                    <input type="text" class="form-control" id="co" name="co" aria-describedby="emailHelp" placeholder="Enter County">
+                </div>
+
+                @*<label>County</label>
+        <input name="co" />*@
+
+
+                <div class="form-group">
+                    <label for="s">Severity</label>
+                    <input type="text" class="form-control" id="s" name="s" aria-describedby="emailHelp" placeholder="Enter Severity">
+                </div>
+                <div class="form-group">
+                    <label for="s">Severity</label>
+                        <select name="s" class="form-select" aria-label="Default select example">
+                            <option selected disabled>Select a Severity</option>
+                            <option value="1.0">No Injury</option>
+                            <option value="2.0">Possible Injury</option>
+                            <option value="3.0">Suspected Minor Injury</option>
+                            <option value="4.0">Suspected Major Injury</option>
+                            <option value="5.0">Fatal</option>
+                        </select>
+                </div>
+                    @*<label>Severity</label>
+            <input name="s" />*@
+
+                    <br />
+                    <div class="float-end">
+                        <input class="btn btn-primary" type="submit" value="Filter Results" />
+                    </div>
+
+            </form>
+        </div>
+        <div class="col">
+            @foreach (CarCrash c in Model.CarCrashes)
+            {
+                <partial name="CrashSummary" model="c" />
+            }
+        </div>
+        <div class="col-1"></div>
     </div>
 
-</div>
+    <div class="container">
+        <div page-turn="@Model.PageInfo" page-action="SummaryData"
+             page-class="btn" page-class-normal="bg-light"
+             page-class-selected="btn-primary" class="btn-group pull-right m-1"
+             page-class-enabled="true">
 
-@foreach (CarCrash c in Model.CarCrashes)
-{
-    <partial name="CrashSummary" model="c" />
-}
+        </div>
+    </div>
+</body>
 
-<div page-turn="@Model.PageInfo" page-action="SummaryData"
-     page-class="btn" page-class-normal="bg-light"
-     page-class-selected="btn-primary" class="btn-group pull-right m-1"
-     page-class-enabled="true"></div>
