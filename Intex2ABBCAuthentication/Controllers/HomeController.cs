@@ -13,6 +13,13 @@ namespace Intex2ABBCAuthentication.Controllers
 {
     public class HomeController : Controller
     {
+        public string City { get; set; }
+        public string County { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
+        public double Severity { get; set; }
+        public CrashFilter filter { get; set; }
+
         private readonly ILogger<HomeController> _logger;
         private ICrashRepository repo;
 
@@ -35,59 +42,27 @@ namespace Intex2ABBCAuthentication.Controllers
         [HttpGet]
         public IActionResult SummaryInitial()
         {
-
-            return View();
-        }
-        [HttpPost]
-        public IActionResult SummaryInitial(CrashFilter c)
-        {
-            
-            int month = c.month;
-            int year = c.year;
-            string city = c.city;
-            string county = c.county;
-            double severity = c.severity;
-
-            MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;database=intexcrashes;user=root;password=usingwindowsisgr8");
-            connection.Open();
-
-            MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "select * from mytable where year(crash_date) = @year && month(crash_date) = @month " +
-                "&& county_name = @county && city = @city && crash_severity_id = @crash";
-            command.Parameters.AddWithValue("@year", year);
-            command.Parameters.AddWithValue("@month", month);
-            command.Parameters.AddWithValue("@county", county);
-            command.Parameters.AddWithValue("@crash", severity);
-            command.Parameters.AddWithValue("@city", city);
-
-            MySqlDataReader stuff = command.ExecuteReader();
-
-            List<int> x = new List<int>();
-
-
-            while (stuff.Read())
+            if (filter is null)
             {
-                x.Add(stuff.GetInt32(stuff.GetOrdinal("Field1")));
+                return View();
             }
-
-
-            connection.Close();
-
-
-
-            return View(x);
-            
+            else
+            {
+                return RedirectToAction("SummaryData", new { c = filter });
+            }
         }
+        
 
-        [HttpGet]
-        public IActionResult SummaryData(int pageNum = 1)
-        {
-            ViewBag.PageNum = pageNum;
-            return View();
-        }
+        //[HttpGet]
+        //public IActionResult SummaryData(int pageNum = 1)
+        //{
+        //    ViewBag.PageNum = pageNum;
+        //    return View();
+        //}
         [HttpPost]
         public IActionResult SummaryData(CrashFilter c)
         {
+            filter = c;
             int month = c.month;
             int year = c.year;
             string city = c.city;
@@ -149,9 +124,18 @@ namespace Intex2ABBCAuthentication.Controllers
         [HttpPost]
         public IActionResult EditCrash(CarCrash c)
         {
-            repo.SaveCrash(c);
+            if (ModelState.IsValid)
+            {
+                repo.SaveCrash(c);
+                return View("Confirmation", c);
+            }
+            else
+            {
+                return View("AddEdit", c);
+            }
 
-            return RedirectToAction("Index");
+
+            return RedirectToAction("EditAdd", c);
         }
 
         [HttpGet]
