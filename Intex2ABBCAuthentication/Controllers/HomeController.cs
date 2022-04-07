@@ -8,20 +8,29 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime.Tensors;
 
 namespace Intex2ABBCAuthentication.Controllers
 {
+
+
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private ICrashRepository repo;
+        private InferenceSession _session;
 
-        public HomeController(ILogger<HomeController> logger, ICrashRepository temp)
+        public HomeController(ILogger<HomeController> logger, ICrashRepository temp, InferenceSession session)
         {
             _logger = logger;
             repo = temp;
+            _session = session;
 
         }
+
+        
 
         public IActionResult Index()
         {
@@ -31,6 +40,29 @@ namespace Intex2ABBCAuthentication.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+        [HttpGet]
+        public IActionResult Prediction(Prediction prediction)
+        {
+            var stuff = new Prediction { PredictedValue = (float)0.0 };
+            ViewBag.Pred = stuff;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Prediction(CarCrash data)
+        { 
+            var result = _session.Run(new List<NamedOnnxValue>
+                {
+                NamedOnnxValue.CreateFromTensor("float_input", data.AsTensor())
+                });
+            Tensor<float> score = result.First().AsTensor<float>();
+            var prediction = new Prediction { PredictedValue = score.First() };
+            result.Dispose();
+
+            var stuff = prediction;
+            ViewBag.Pred = stuff;
+
+            return View(data);
         }
         [HttpGet]
         public IActionResult SummaryInitial()
@@ -140,7 +172,7 @@ namespace Intex2ABBCAuthentication.Controllers
         public IActionResult EditAdd(int fieldid)
         {
 
-            var blah = repo.Crashes.Single(x => x.Field1 == fieldid);
+           var blah = repo.Crashes.Single(x => x.Field1 == fieldid);
             return View(blah);
         }
 

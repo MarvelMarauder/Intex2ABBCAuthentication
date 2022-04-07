@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.ML.OnnxRuntime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,6 +59,7 @@ namespace Intex2ABBCAuthentication
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddSingleton<InferenceSession>( new InferenceSession("wwwroot/Onix/crashes.onnx"));
 
             //services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
         }
