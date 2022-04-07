@@ -42,23 +42,21 @@ namespace Intex2ABBCAuthentication.Controllers
         [HttpGet]
         public IActionResult SummaryInitial()
         {
-            if (filter is null)
+            var things = new IntegersUsed(repo, 10)
             {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("SummaryData", new { c = filter });
-            }
-        }
-        
+                Crashes2 = repo.Crashes.AsEnumerable()
+            };
 
-        //[HttpGet]
-        //public IActionResult SummaryData(int pageNum = 1)
-        //{
-        //    ViewBag.PageNum = pageNum;
-        //    return View();
-        //}
+            return View("SummaryData", things);
+        }
+
+
+        [HttpGet]
+        public IActionResult SummaryData(int pageNum = 1)
+        {
+            ViewBag.PageNum = pageNum;
+            return View();
+        }
         [HttpPost]
         public IActionResult SummaryData(CrashFilter c)
         {
@@ -132,11 +130,8 @@ namespace Intex2ABBCAuthentication.Controllers
             }
             else
             {
-                return View("AddEdit", c);
+                return View("EditAdd", c);
             }
-
-
-            return RedirectToAction("EditAdd", c);
         }
 
         [HttpGet]
