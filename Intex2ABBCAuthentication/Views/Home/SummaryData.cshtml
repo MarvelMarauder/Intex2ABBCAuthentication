@@ -7,33 +7,39 @@
     <div class="col-3">
         <form asp-action="SummaryData" method="post">
             <label>Year</label>
-            <input name="y"/>
+            <input name="y" />
 
             <label>Month</label>
-            <input name="m"/>
+            <input name="m" />
 
             <label>City</label>
-            <input name="c"/>
+            <input name="c" />
 
             <label>County</label>
-            <input name="co"/>
+            <input name="co" />
 
             <label>Severity</label>
-            <input name="s"/>
+            <input name="s" />
 
             <div class="float-end">
                 <input class="btn btn-primary" type="submit" value="Filter Results" />
             </div>
 
         </form>
+        @*<vc:filter></vc:filter>*@
+
+
+    </div>
+    <div class="col-9">
+        @foreach (CarCrash c in Model.CarCrashes)
+        {
+            <partial name="CrashSummary" model="c" />
+        }
     </div>
 
 </div>
 
-@foreach (CarCrash c in Model.CarCrashes)
-{
-    <partial name="CrashSummary" model="c" />
-}
+
 
 <div page-turn="@Model.PageInfo" page-action="SummaryData"
      page-class="btn" page-class-normal="bg-light"
