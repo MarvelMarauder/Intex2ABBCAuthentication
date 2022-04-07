@@ -1,284 +1,222 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-
-@{
-    ViewData["Title"] = "Edit/Add Page";
-}
-
 @model CarCrash
 
+@{
+    ViewData["Title"] = "Add / Edit Page";
+    double[] severity_options = { 1.0, 2.0, 3.0, 4.0, 5.0 };
+    string[] counties = { "Beaver", "Box Elder", "Cache", "Carbon", "Daggett", "Davis", "Duchesne", "Emery", "Garfield", "Grand", "Iron", "Juab", "Kane", "Millard", "Morgan", "Piute", "Rich", "Salt Lake", "San Juan", "Sanpete", "Sevier", "Summit", "Tooele", "Uintah", "Utah", "Wasatch", "Washington", "Wayne", "Weber" };
+}
 
-<h3 class="bg-@ThemeColor text-white text-center p-1">@TitleText a Crash</h3>
+<div>
+    <div asp-validation-summary="All" class="text-danger">
 
-<EditForm Model="c" OnValidSubmit="SaveCrash">
-    <DataAnnotationsValidator></DataAnnotationsValidator>
-
-    <div class="form-group">
-        <label>Crash Id</label>
-        <input class="form-control" disabled value="@Model.crash_id" />
     </div>
+    <form asp-controller="Home" asp-action="@(Model != null ? "EditCrash" : "AddCrash")" method="post">
 
-    <div class="form-group">
-        <label>Severity</label>
-        <ValidationMessage For="@(() => Model.crash_severity_id)"></ValidationMessage>
-        <InputSelect id="crash_severity_id" @bind -Value="Model.crash_severity_id" class="form-control">
-            @foreach (var car in @repo.Crashes.ToList())
+        <input type="hidden" asp-for="Field1" />
+
+        <label asp-for="city">City</label>
+        <input asp-for="city" /> <br />
+
+        <label asp-for="county_name">Select a County: </label>
+        <select asp-for="county_name">
+            <option value="">-- Select a County --</option>
+            @foreach (string c in counties)
             {
-                <option value="@car.crash_severity_id">@car.crash_severity_id</option>
+                <option value="@c">@c</option>
             }
-        </InputSelect>
-    </div>
+        </select>
 
-    <div class="form-group">
-        <label>Date</label>
-        <ValidationMessage For="@(() => Model.crash_date)"></ValidationMessage>
-        <InputDate type="date" class="form-control" @bind -Value="@Model.crash_date"></InputDate>
-    </div>
+        <label asp-for="main_road_name">Road Name</label>
+        <input asp-for="main_road_name" />
 
-    <div class="form-group">
-        <label>Time</label>
-        <ValidationMessage For="@(() => Model.crash_time)"></ValidationMessage>
-        <InputText type="time" class="form-control" @bind -Value="@Model.crash_time"></InputText>
-    </div>
+        <label asp-for="milepoint">Milepoint</label>
+        <input asp-for="milepoint" />
 
-    <div class="form-group">
-        <label>Is a Holiday</label>
-        <ValidationMessage For="@(() => Model.Holiday)"></ValidationMessage>
-        <InputSelect id="Holiday" @bind -Value="Model.Holiday" class="form-control">
-            <option value="False">False</option>
+        <label asp-for="route">Route</label>
+        <input asp-for="route" />
+
+        <label asp-for="crash_date">Crash Date</label>
+        <input type="date" asp-for="crash_date" />
+
+        <input value="" asp-for="crash_datetime" type="hidden" />
+
+        <label asp-for="crash_time">Crash Time</label>
+        <input asp-for="crash_time" />
+
+        <label asp-for="Holiday">Holiday</label>
+        <select asp-for="Holiday">
+            <option value="">T/F</option>
             <option value="True">True</option>
-        </InputSelect>
-    </div>
-
-    <div class="form-group">
-        <label>On a Weekdend</label>
-        <ValidationMessage For="@(() => Model.Weekend)"></ValidationMessage>
-        <InputSelect id="Weekend" @bind -Value="Model.Weekend" class="form-control">
             <option value="False">False</option>
+        </select>
+
+        <label asp-for="Weekend">Weekend</label>
+        <select asp-for="Weekend">
+            <option value="">T/F</option>
             <option value="True">True</option>
-        </InputSelect>
-    </div>
-    <div class="form-group">
-        <label>County</label>
-        <ValidationMessage For="@(() => Model.county_name)"></ValidationMessage>
-        <InputSelect id="county" @bind -Value="Model.county_name" class="form-control">
-            @foreach (var car in @repo.Crashes.ToList())
+            <option value="False">False</option>
+        </select>
+
+        <label asp-for="Freeway">On a Freeway</label>
+        <select asp-for="Freeway">
+            <option value="">T/F</option>
+            <option value="True">True</option>
+            <option value="False">False</option>
+        </select>
+
+        <label asp-for="crash_severity_id">How Severe?</label>
+        <select asp-for="crash_severity_id">
+            <option value="">-- Select a Severity --</option>
+            @foreach (double c in severity_options)
             {
-                <option value="@car.county_name">@car.county_name</option>
+                <option value="@c">@c</option>
             }
-        </InputSelect>
-    </div>
-    <div class="form-group">
-        <label>City</label>
-        <ValidationMessage For="@(() => Model.city)"></ValidationMessage>
-        <InputSelect id="city" @bind -Value="Model.city" class="form-control">
-            @foreach (var car in @repo.Crashes.ToList())
-            {
-                <option value="@car.city">@car.city</option>
-            }
-        </InputSelect>
-    </div>
+        </select>
 
-    <div class="form-group">
-        <label>Road</label>
-        <ValidationMessage For="@(() => Model.main_road_name)"></ValidationMessage>
-        <InputText class="form-control" @bind -Value="@Model.main_road_name"></InputText>
-    </div>
+        <label asp-for="single_vehicle">Single Vehicle?</label>
+        <select asp-for="single_vehicle">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Route</label>
-        <ValidationMessage For="@(() => Model.route)"></ValidationMessage>
-        <InputText class="form-control" @bind -Value="@Model.route"></InputText>
-    </div>
+        <label asp-for="overturn_rollover">Car Rollover?</label>
+        <select asp-for="overturn_rollover">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>On a Freeway</label>
-        <ValidationMessage For="@(() => Model.Freeway)"></ValidationMessage>
-        <InputSelect id="Freeway" @bind -Value="Model.Freeway" class="form-control">
-            <option value="False">False</option>
-            <option value="True">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="teenage_driver_involved">Teenage Driver Involved</label>
+        <select asp-for="teenage_driver_involved">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Mile Point</label>
-        <ValidationMessage For="@(() => Model.milepoint)"></ValidationMessage>
-        <InputNumber class="form-control" @bind -Value="@Model.milepoint"></InputNumber>
-    </div>
+        <label asp-for="dui">DUI</label>
+        <select asp-for="dui">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Bicyclist Involved</label>
-        <ValidationMessage For="@(() => Model.bicyclist_involved)"></ValidationMessage>
-        <InputSelect id="bicyclist_involved" @bind -Value="Model.bicyclist_involved" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="distracted_driving">Distracted Driving</label>
+        <select asp-for="distracted_driving">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Motorcycle Involved</label>
-        <ValidationMessage For="@(() => Model.motorcycle_involved)"></ValidationMessage>
-        <InputSelect id="motorcycle_involved" @bind -Value="Model.motorcycle_involved" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="drowsy_driving">Drowsy Driving</label>
+        <select asp-for="drowsy_driving">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Commercial Vehicle Involved</label>
-        <ValidationMessage For="@(() => Model.commercial_motor_veh_involved)"></ValidationMessage>
-        <InputSelect id="commercial_motor_veh_involved" @bind -Value="Model.commercial_motor_veh_involved" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="night_dark_condition">Night Conditions</label>
+        <select asp-for="night_dark_condition">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Pedestrian Involved</label>
-        <ValidationMessage For="@(() => Model.pedestrian_involved)"></ValidationMessage>
-        <InputSelect id="pedestrian_involved" @bind -Value="Model.pedestrian_involved" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="roadway_departure">Roadway Departure</label>
+        <select asp-for="roadway_departure">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Driving Under the Influence</label>
-        <ValidationMessage For="@(() => Model.dui)"></ValidationMessage>
-        <InputSelect id="dui" @bind -Value="Model.dui" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="motorcycle_involved">Motorcyle Involved</label>
+        <select asp-for="motorcycle_involved">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Drowsy Driving</label>
-        <ValidationMessage For="@(() => Model.drowsy_driving)"></ValidationMessage>
-        <InputSelect id="drowsy_driving" @bind -Value="Model.drowsy_driving" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="bicyclist_involved">Bicyclist Involved</label>
+        <select asp-for="bicyclist_involved">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Distracted Driving</label>
-        <ValidationMessage For="@(() => Model.distracted_driving)"></ValidationMessage>
-        <InputSelect id="distracted_driving" @bind -Value="Model.distracted_driving" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="commercial_motor_veh_involved">Commercial Vehicle Involved</label>
+        <select asp-for="commercial_motor_veh_involved">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Domestic Animal Related</label>
-        <ValidationMessage For="@(() => Model.domestic_animal_related)"></ValidationMessage>
-        <InputSelect id="domestic_animal_related" @bind -Value="Model.domestic_animal_related" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="pedestrian_involved">Pedestrian Involved</label>
+        <select asp-for="pedestrian_involved">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Wild Animal Related</label>
-        <ValidationMessage For="@(() => Model.wild_animal_related)"></ValidationMessage>
-        <InputSelect id="wild_animal_related" @bind -Value="Model.wild_animal_related" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="older_driver_involved">Older Driver Involved</label>
+        <select asp-for="older_driver_involved">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Improper Use of Restraint</label>
-        <ValidationMessage For="@(() => Model.improper_restraint)"></ValidationMessage>
-        <InputSelect id="improper_restraint" @bind -Value="Model.improper_restraint" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="domestic_animal_related">Domestic Animal Related</label>
+        <select asp-for="domestic_animal_related">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Lack of Restraint</label>
-        <ValidationMessage For="@(() => Model.unrestrained)"></ValidationMessage>
-        <InputSelect id="unrestrained" @bind -Value="Model.unrestrained" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="wild_animal_related">Wild Animal Related</label>
+        <select asp-for="wild_animal_related">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Work Zone Related</label>
-        <ValidationMessage For="@(() => Model.work_zone_related)"></ValidationMessage>
-        <InputSelect id="work_zone_related" @bind -Value="Model.work_zone_related" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="work_zone_related">Workzone Related</label>
+        <select asp-for="work_zone_related">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Intersection Related</label>
-        <ValidationMessage For="@(() => Model.intersection_related)"></ValidationMessage>
-        <InputSelect id="intersection_related" @bind -Value="Model.intersection_related" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="improper_restraint">Improper Restraint</label>
+        <select asp-for="improper_restraint">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Night Time(Dark)</label>
-        <ValidationMessage For="@(() => Model.night_dark_condition)"></ValidationMessage>
-        <InputSelect id="night_dark_condition" @bind -Value="Model.night_dark_condition" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="unrestrained">Unrestrained</label>
+        <select asp-for="unrestrained">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Older Driver Involved</label>
-        <ValidationMessage For="@(() => Model.older_driver_involved)"></ValidationMessage>
-        <InputSelect id="older_driver_involved" @bind -Value="Model.older_driver_involved" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="intersection_related">Intersection Involved</label>
+        <select asp-for="intersection_related">
+            @*<option value="">T/F</option>*@
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
 
-    <div class="form-group">
-        <label>Teenage Driver Involved</label>
-        <ValidationMessage For="@(() => Model.teenage_driver_involved)"></ValidationMessage>
-        <InputSelect id="teenage_driver_involved" @bind -Value="Model.teenage_driver_involved" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="lat_utm_y">Latitude</label>
+        <input asp-for="lat_utm_y" />
 
-    <div class="form-group">
-        <label>Vehicle Overturned</label>
-        <ValidationMessage For="@(() => Model.overturn_rollover)"></ValidationMessage>
-        <InputSelect id="overturn_rollover" @bind -Value="Model.overturn_rollover" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <label asp-for="long_utm_x">Longitude</label>
+        <input asp-for="long_utm_x" />
+        <br />
 
-    <div class="form-group">
-        <label>Crash Ran Vehicle Off Road</label>
-        <ValidationMessage For="@(() => Model.roadway_departure)"></ValidationMessage>
-        <InputSelect id="roadway_departure" @bind -Value="Model.roadway_departure" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
+        <input type="hidden" asp-for="crash_id" />
 
-    <div class="form-group">
-        <label>Single Vehicle Crash</label>
-        <ValidationMessage For="@(() => Model.single_vehicle)"></ValidationMessage>
-        <InputSelect id="single_vehicle" @bind -Value="Model.single_vehicle" class="form-control">
-            <option value="0.0">False</option>
-            <option value="1.0">True</option>
-        </InputSelect>
-    </div>
-
-    <button type="submit" class="btn btn-@ThemeColor">Save</button>
-    <NavLink class="btn btn-secondary" href="/admin/books">Cancel</NavLink>
-
-</EditForm>
+        <button type="submit">Submit</button>
+    </form>
+</div>
