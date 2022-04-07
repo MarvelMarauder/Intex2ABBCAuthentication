@@ -95,17 +95,25 @@ namespace Intex2ABBCAuthentication
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
+                    "severitypagenum",
+                    "/SummaryData/{severity}/{pageNum}",
+                    new { Controller = "Home", action = "SummaryData" });
+
+                endpoints.MapControllerRoute(
+                    "paging",
+                    "/SummaryData/{pageNum}",
+                    new { Controller = "Home", action = "SummaryData" });
+
+                endpoints.MapControllerRoute(
+                    "category",
+                    "/SummaryData/{bookCategory}",
+                    new { Controller = "Home", action = "SummaryData", pageNum = 1 });
+
+                endpoints.MapControllerRoute(
                     "details",
                     "details/{fieldid}",
                     new { Controller = "Home", action = "Details" });
                 endpoints.MapRazorPages();
-
-                endpoints.MapControllerRoute(
-                    "paging",
-                    "SummaryData/{pageNum}",
-                    new { Controller = "Home", action = "SummaryData" });
-
-
 
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");

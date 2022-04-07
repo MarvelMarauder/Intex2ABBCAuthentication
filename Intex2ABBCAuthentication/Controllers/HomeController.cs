@@ -151,36 +151,32 @@ namespace Intex2ABBCAuthentication.Controllers
             return PageInfo;
         }
         [HttpGet]
-        public IActionResult SummaryData(int pageNum = 1)
+        public IActionResult SummaryData(double severity, int pageNum = 1)
         {
             int pageSize = 10;
-            var things = new CrashViewModel();
-            if (ViewBag.Crashes == null) 
+            int total = 0;
+            if (severity != 0)
             {
-                things = new CrashViewModel()
-                {
-                    CarCrashes = repo.Crashes.AsEnumerable()
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize),
-                    PageInfo = GetPageInfo(repo.Crashes.Count(), pageNum, 10, 10)
-                };
+                total = repo.Crashes.Where(x => x.crash_severity_id == severity).Count();
             }
             else
             {
-                things = new CrashViewModel()
-                {
-                    CarCrashes = ViewBag.Crashes
+                total = repo.Crashes.Count();
+            }
+            var things = new CrashViewModel()
+            {
+                CarCrashes = repo.Crashes
+                    .Where(x => x.crash_severity_id == severity || severity == 0)
+                    .AsEnumerable()
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
-                    PageInfo = GetPageInfo(ViewBag.Crashes.Count(), pageNum, 10, 10)
+                    PageInfo = GetPageInfo(total, pageNum, 10, 10)
                 };
-            }
-
-            ViewBag.PageNum = pageNum;
+            
             return View(things);
         }
         [HttpPost]
-        public IActionResult SummaryData(int m, int y, string c, string co, double s)
+        public IActionResult SummaryData(int m = 0, int y = 0, string c = null, string co = null, double s = 0)
         {
             var pageNum = 1;
             var pageSize = 10;
@@ -191,14 +187,16 @@ namespace Intex2ABBCAuthentication.Controllers
             string county = co;
             double severity = s;
 
-            var queryCrash = from crash in repo.Crashes
-                                       where 
-                                       crash.crash_date.Month == month && 
-                                       crash.crash_date.Year == year &&
-                                       crash.city == city &&
-                                       crash.county_name == county &&
-                                       crash.crash_severity_id == severity
-                                       select crash;
+            var monthQuery = from crash in repo.Crashes where crash.crash_date.Month == month select crash;
+            var yearQuery = from crash in repo.Crashes where crash.crash_date.Year == year select crash;
+            var cityQuery = from crash in repo.Crashes where crash.city == city select crash;
+            var countyQuery = from crash in repo.Crashes where crash.county_name == county select crash;
+            var severityQuery = from crash in repo.Crashes where crash.crash_severity_id == severity select crash;
+
+            var queryCrash = monthQuery.Concat(yearQuery).Concat(cityQuery).Concat(countyQuery).Concat(severityQuery);
+
+            
+
             var things = new CrashViewModel()
             {
                 CarCrashes = queryCrash
