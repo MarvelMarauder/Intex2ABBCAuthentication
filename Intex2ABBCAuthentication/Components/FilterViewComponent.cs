@@ -11,7 +11,7 @@ namespace Intex2ABBCAuthentication.Components
         public FilterViewComponent()
         {
         }
-        public async  Task<IViewComponentResult> InvokeAsyn()
+        public async  Task<IViewComponentResult> InvokeAsync()
         {
             return View();
         }
