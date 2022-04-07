@@ -126,7 +126,7 @@ namespace Intex2ABBCAuthentication.Controllers
             if (ModelState.IsValid)
             {
                 repo.SaveCrash(c);
-                return View("Confirmation", c);
+                return View("SummaryInitial", c);
             }
             else
             {
