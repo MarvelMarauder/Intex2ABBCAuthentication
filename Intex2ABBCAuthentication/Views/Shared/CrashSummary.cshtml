@@ -4,7 +4,7 @@
 <div class="card card-outline-primary m-1 p-1 font-weight-bolder">
 
     <div class="p-1">
-        <h4>Crash on @Model.crash_date in @Model.city, UT</h4>
+        <h4>Crash ID: @Model.crash_id</h4>
 
         <span class="badge badge-primary" style="float:right">
             Severity: @Model.crash_severity_id
@@ -12,14 +12,14 @@
     </div>
 
     <ul>
+        <li class="text-lg-left">City: @Model.city</li>
         <li class="text-lg-left">County: @Model.county_name</li>
-        <li class="text-lg-left">Day of the Week: @Model.crash_date.DayOfWeek</li>
-        <li class="text-lg-left">Holiday: @Model.Holiday</li>
-        <li><a asp-controller="Home" asp-action="Details" asp-route-fieldid="@Model.Field1">View Details</a></li>
+        <li class="text-lg-left">Date: @Model.crash_date.Month/@Model.crash_date.Day/@Model.crash_date.Year</li>
     </ul>
 
     @if (User.Identity.IsAuthenticated == true)
     {
+        <a asp-controller="Home" asp-action="Details" asp-route-fieldid="@Model.Field1">Details</a>
         <a asp-controller="Home" asp-action="EditCrash" asp-route-fieldid="@Model.Field1">Edit</a>
         <a asp-controller="Home" asp-action="Delete" asp-route-fieldid="@Model.Field1">Delete</a>
     }
