@@ -9,7 +9,6 @@
     string[] counties = { "Beaver", "Box Elder", "Cache", "Carbon", "Daggett", "Davis", "Duchesne", "Emery", "Garfield", "Grand", "Iron", "Juab", "Kane", "Millard", "Morgan", "Piute", "Rich", "Salt Lake", "San Juan", "Sanpete", "Sevier", "Summit", "Tooele", "Uintah", "Utah", "Wasatch", "Washington", "Wayne", "Weber" };
 }
 
-
 <h3 class="bg-info text-white text-center">Edit / Add</h3>
 
 <form asp-controller="Home" asp-action="@(Model != null ? "EditCrash" : "AddCrash")" method="post">
@@ -21,10 +20,10 @@
 
             </div>
 
-                <input type="hidden" asp-for="Field1" value="@(Model != null ? Model.Field1 : 0)" />
 
         <tr>
             <th>
+                <input type="hidden" asp-for="Field1" value="@(Model != null ? Model.Field1 : 0)" />
 
                 <label asp-for="city">City</label>
             </th>
@@ -34,7 +33,7 @@
         </tr>
         <tr>
                 <th>
-                    <label asp-for="county_name">Select a County: </label>
+                    <label asp-for="county_name">Select a County </label>
                 </th>
             <td>
                 <select asp-for="county_name">
@@ -97,11 +96,10 @@
             </th>
 
             <td>
-                <select asp-for="Holiday">
-                    <option value="">T/F</option>
-                    <option value="True">True</option>
-                    <option value="False">False</option>
-                </select>
+                <input asp-for="Holiday" id="yes" type="radio" value="True">
+                <label for="yes">Yes</label>
+                <input asp-for="Holiday" id="no" type="radio" value="False">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -110,11 +108,10 @@
             </th>
 
             <td>
-                <select asp-for="Weekend">
-                    <option value="">T/F</option>
-                    <option value="True">True</option>
-                    <option value="False">False</option>
-                </select>
+                <input asp-for="Weekend" id="yes" type="radio" value="True">
+                <label for="yes">Yes</label>
+                <input asp-for="Weekend" id="no" type="radio" value="False">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -122,16 +119,15 @@
                 <label asp-for="Freeway">On a Freeway</label>
             </th>
             <td>
-                <select asp-for="Freeway">
-                    <option value="">T/F</option>
-                    <option value="True">True</option>
-                    <option value="False">False</option>
-                </select>
+                <input asp-for="Freeway" id="yes" type="radio" value="True">
+                <label for="yes">Yes</label>
+                <input asp-for="Freeway" id="no" type="radio" value="False">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
             <th>
-                <label asp-for="crash_severity_id">How Severe?</label>
+                <label asp-for="crash_severity_id">How Severe</label>
             </th>
             <td>
                 <select asp-for="crash_severity_id">
@@ -146,26 +142,25 @@
 
         <tr>
             <th>
-                <label asp-for="single_vehicle">Single Vehicle?</label>
+                <label asp-for="single_vehicle">Single Vehicle</label>
             </th>
 
             <td>
-                <select asp-for="single_vehicle">
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="single_vehicle" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="single_vehicle" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
             <th>
-                <label asp-for="overturn_rollover">Car Rollover?</label>
+                <label asp-for="overturn_rollover">Car Rollover</label>
             </th>
             <td>
-                <select asp-for="overturn_rollover">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="overturn_rollover" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="overturn_rollover" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -174,11 +169,10 @@
             </th>
 
             <td>
-                <select asp-for="teenage_driver_involved">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="teenage_driver_involved" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="teenage_driver_involved" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -187,11 +181,10 @@
             </th>
 
             <td>
-                <select asp-for="dui">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="dui" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="dui" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -199,11 +192,10 @@
                 <label asp-for="distracted_driving">Distracted Driving</label>
             </th>
             <td>
-                <select asp-for="distracted_driving">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="distracted_driving" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="distracted_driving" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -212,11 +204,10 @@
             </th>
 
             <td>
-                <select asp-for="drowsy_driving">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="drowsy_driving" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="drowsy_driving" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -225,11 +216,10 @@
             </th>
 
             <td>
-                <select asp-for="night_dark_condition">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="night_dark_condition" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="night_dark_condition" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -238,11 +228,10 @@
             </th>
 
             <td>
-                <select asp-for="roadway_departure">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="roadway_departure" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="roadway_departure" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -251,11 +240,10 @@
             </th>
 
             <td>
-                <select asp-for="motorcycle_involved">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="motorcycle_involved" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="motorcycle_involved" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -264,11 +252,10 @@
             </th>
 
             <td>
-                <select asp-for="bicyclist_involved">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="bicyclist_involved" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="bicyclist_involved" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -277,11 +264,10 @@
             </th>
 
             <td>
-                <select asp-for="commercial_motor_veh_involved">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="commercial_motor_veh_involved" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="commercial_motor_veh_involved" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -290,11 +276,10 @@
             </th>
 
             <td>
-                <select asp-for="pedestrian_involved">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="pedestrian_involved" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="pedestrian_involved" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -303,11 +288,10 @@
             </th>
 
             <td>
-                <select asp-for="older_driver_involved">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="older_driver_involved" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="older_driver_involved" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -316,11 +300,10 @@
             </th>
 
             <td>
-                <select asp-for="domestic_animal_related">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="domestic_animal_related" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="domestic_animal_related" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -329,11 +312,10 @@
             </th>
 
             <td>
-                <select asp-for="wild_animal_related">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="wild_animal_related" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="wild_animal_related" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -342,11 +324,10 @@
             </th>
 
             <td>
-                <select asp-for="work_zone_related">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="work_zone_related" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="work_zone_related" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -355,11 +336,10 @@
             </th>
 
             <td>
-                <select asp-for="improper_restraint">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="improper_restraint" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="improper_restraint" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -368,11 +348,10 @@
             </th>
 
             <td>
-                <select asp-for="unrestrained">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="unrestrained" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="unrestrained" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
@@ -381,11 +360,10 @@
             </th>
 
             <td>
-                <select asp-for="intersection_related">
-                    @*<option value="">T/F</option>*@
-                    <option value="1">True</option>
-                    <option value="0">False</option>
-                </select>
+                <input asp-for="intersection_related" id="yes" type="radio" value="1">
+                <label for="yes">Yes</label>
+                <input asp-for="intersection_related" id="no" type="radio" value="0">
+                <label for="no">No</label>
             </td>
         </tr>
         <tr>
