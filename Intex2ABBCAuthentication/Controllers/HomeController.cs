@@ -144,10 +144,31 @@ namespace Intex2ABBCAuthentication.Controllers
             return View(blah);
         }
 
+        [HttpGet]
+        public IActionResult Delete(int fieldId)
+        {
+            var to_delete = repo.Crashes.Single(x => x.Field1 == fieldId);
+
+            return View(to_delete);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(CarCrash cc, int fieldId)
+        {
+            var carCrash = repo.Crashes.Single(x => x.Field1== fieldId);
+
+            repo.DeleteCrash(carCrash);
+
+            return RedirectToAction("SummaryData");
+        }
+
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
