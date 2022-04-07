@@ -21,7 +21,7 @@
     @if (User.Identity.IsAuthenticated == true)
     {
         <a asp-controller="Home" asp-action="EditCrash" asp-route-fieldid="@Model.Field1">Edit</a>
-        <a asp-controller="Home" asp-action="DeleteCrash" asp-route-fieldid="@Model.Field1">Delete</a>
+        <a asp-controller="Home" asp-action="Delete" asp-route-fieldid="@Model.Field1">Delete</a>
     }
 
 </div>

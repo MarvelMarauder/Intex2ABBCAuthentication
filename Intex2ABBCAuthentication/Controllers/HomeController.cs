@@ -105,8 +105,9 @@ namespace Intex2ABBCAuthentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var i = repo.Crashes.Count();
+                var i = repo.Crashes.Count()+8251;
                 c.Field1 = i + 1;
+                c.crash_id = c.Field1;
                 repo.CreateCrash(c);
                 return View("Confirmation", c);
             }
@@ -143,15 +144,14 @@ namespace Intex2ABBCAuthentication.Controllers
         {
             var to_delete = repo.Crashes.Single(x => x.Field1 == fieldId);
 
-            return View(to_delete);
+            return View("Confirmation", to_delete);
         }
 
         [HttpPost]
-        public IActionResult Delete(CarCrash cc, int fieldId)
+        public IActionResult Delete(CarCrash cc)
         {
-            var carCrash = repo.Crashes.Single(x => x.Field1== fieldId);
 
-            repo.DeleteCrash(carCrash);
+            repo.DeleteCrash(cc);
 
             return RedirectToAction("SummaryData");
         }
