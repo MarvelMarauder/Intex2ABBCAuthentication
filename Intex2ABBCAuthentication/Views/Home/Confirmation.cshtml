@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Delete Appointment";
+}
+
+@model CarCrash
+
+<h2>Confirm Deletion</h2>
+<h3>Are you sure you want to delete appointment for the crash in @Model.city?</h3>
+
+<form method="post" asp-action="Delete">
+    <button type="submit" class="btn-primary">Delete</button>
+    <a asp-controller="Home" asp-action="SummaryData" class="btn btn-primary">Cancel</a>
+
+    <input type="hidden" asp-for="Field1" />
+</form>

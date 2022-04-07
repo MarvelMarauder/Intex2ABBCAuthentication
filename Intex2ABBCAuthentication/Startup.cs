@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.ML.OnnxRuntime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,11 +41,14 @@ namespace Intex2ABBCAuthentication
             });
 
             services.AddDbContext<CrashContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("CrashConnection")));
+            {
+                options.UseMySql(Configuration["ConnectionStrings:CrashConnection"]);
+            });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            {
+                options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"]);
+            });
 
             services.AddScoped<ICrashRepository, EFCrashRepository>();
 
@@ -53,6 +58,10 @@ namespace Intex2ABBCAuthentication
             services.AddControllersWithViews();
 
             services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddSingleton<InferenceSession>( new InferenceSession("wwwroot/Onix/crashes.onnx"));
+
+            //services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,7 +93,30 @@ namespace Intex2ABBCAuthentication
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    "severitypagenum",
+                    "/SummaryData/{severity}/{pageNum}",
+                    new { Controller = "Home", action = "SummaryData" });
+
+                endpoints.MapControllerRoute(
+                    "paging",
+                    "/SummaryData/{pageNum}",
+                    new { Controller = "Home", action = "SummaryData" });
+
+                endpoints.MapControllerRoute(
+                    "category",
+                    "/SummaryData/{bookCategory}",
+                    new { Controller = "Home", action = "SummaryData", pageNum = 1 });
+
+                endpoints.MapControllerRoute(
+                    "details",
+                    "details/{fieldid}",
+                    new { Controller = "Home", action = "Details" });
                 endpoints.MapRazorPages();
+
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
             });
         }
     }

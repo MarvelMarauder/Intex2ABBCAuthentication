@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Intex2ABBCAuthentication.Models.ViewModels;
 
-namespace TinyAmazon.Infrastructure
+namespace Intex2ABBCAuthentication.Infrastructure
 {
     [HtmlTargetElement("div", Attributes = "page-turn")]
     public class PaginationHelper : TagHelper
@@ -38,7 +38,7 @@ namespace TinyAmazon.Infrastructure
 
             TagBuilder final = new TagBuilder("div");
 
-            for (int i = 1; i <= PageTurn.TotalPages; i++)
+            for (int i = PageTurn.StartPage; i <= PageTurn.EndPage; i++)
             {
                 TagBuilder tb = new TagBuilder("a");
 

@@ -13,10 +13,11 @@ namespace Intex2ABBCAuthentication.Models
             context = temp;
         }
 
-        public IQueryable<CarCrash> Crashes => context.carcrash;
+        public IQueryable<CarCrash> Crashes => context.mytable;
 
         public void SaveCrash(CarCrash c)
         {
+            context.Update(c);
             context.SaveChanges();
         }
         public void CreateCrash(CarCrash c)
