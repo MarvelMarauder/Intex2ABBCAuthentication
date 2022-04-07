@@ -17,6 +17,7 @@ namespace Intex2ABBCAuthentication.Models
 
         public void SaveCrash(CarCrash c)
         {
+            context.Update(c);
             context.SaveChanges();
         }
         public void CreateCrash(CarCrash c)

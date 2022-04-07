@@ -15,7 +15,7 @@
     </div>
     <form asp-controller="Home" asp-action="@(Model != null ? "EditCrash" : "AddCrash")" method="post">
 
-        <input type="hidden" asp-for="Field1" value="0" />
+        <input type="hidden" asp-for="Field1" value="@(Model != null ? Model.Field1 : 0)" />
 
         <label asp-for="city">City</label>
         <input asp-for="city" /> <br />
@@ -215,7 +215,7 @@
         <input asp-for="long_utm_x" />
         <br />
 
-        <input type="hidden" asp-for="crash_id" value="0" />
+        <input type="hidden" asp-for="crash_id" value="@(Model != null ? Model.Field1 : 0)" />
 
         <button type="submit">Submit</button>
     </form>
