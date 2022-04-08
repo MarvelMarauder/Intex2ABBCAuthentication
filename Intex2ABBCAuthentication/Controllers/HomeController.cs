@@ -378,7 +378,17 @@ namespace Intex2ABBCAuthentication.Controllers
                 c.Field1 = i + 1;
                 c.crash_id = c.Field1;
                 repo.CreateCrash(c);
-                return View("SummaryData");
+
+                IEnumerable<CarCrash> stuff = Enumerable.Empty<CarCrash>();
+                stuff = stuff.Append(c);
+
+                var car = new CrashViewModel
+                {
+                    CarCrashes = stuff,
+                    PageInfo = GetPageInfo(1, 1, 10, 10)
+                };
+                
+                return View("SummaryData", car);
             }
             else //if invalid, send back to the form and see error messages
             {
@@ -397,7 +407,15 @@ namespace Intex2ABBCAuthentication.Controllers
             if (ModelState.IsValid)
             {
                 repo.SaveCrash(c);
-                return View("SummaryInitial", c);
+                IEnumerable<CarCrash> stuff = Enumerable.Empty<CarCrash>();
+                stuff = stuff.Append(c);
+
+                var car = new CrashViewModel
+                {
+                    CarCrashes = stuff,
+                    PageInfo = GetPageInfo(1, 1, 10, 10)
+                };
+                return View("SummaryData", car);
             }
             else
             {
