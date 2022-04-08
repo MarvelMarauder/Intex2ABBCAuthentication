@@ -40,14 +40,14 @@ namespace Intex2ABBCAuthentication
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<CrashContext>(options =>
-            {
-                options.UseMySql(Configuration["ConnectionStrings:CrashConnection"]);
-            });
-
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseMySql(DbSecret.GetRDSConnectionString("first"));
+            });
+
+            services.AddDbContext<CrashContext>(options =>
+            {
+                options.UseMySql(DbSecret.GetRDSConnectionString("second"));
             });
 
             services.AddScoped<ICrashRepository, EFCrashRepository>();
