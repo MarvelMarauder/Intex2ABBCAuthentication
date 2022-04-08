@@ -211,7 +211,7 @@ namespace Intex2ABBCAuthentication.Controllers
             //01000
             else if (month == 0 && year != 0 && city == null && county == null && severity == 0)
             {
-                bigQuery = from crash in repo.Crashes where crash.crash_date.Year == year && crash.city == city && crash.county_name == county && crash.crash_severity_id == severity select crash;
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Year == year select crash;
             }
             //01100
             else if (month == 0 && year != 0 && city != null && county == null && severity == 0)
