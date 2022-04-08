@@ -72,16 +72,16 @@ namespace Intex2ABBCAuthentication.Controllers
             return View(data);
         }
 
-        //[HttpGet]
-        //public IActionResult SummaryInitial()
-        //{
-        //    var things = new IntegersUsed(repo, 10)
-        //    {
-        //        Crashes2 = repo.Crashes.AsEnumerable()
-        //    };
+        [HttpGet]
+        public IActionResult SummaryInitial()
+        {
+            var things = new IntegersUsed(repo, 10)
+            {
+                Crashes2 = repo.Crashes.AsEnumerable()
+            };
 
-        //    return View("SummaryData", things);
-        //}
+            return View("SummaryData", things);
+        }
 
         public PageInfo GetPageInfo(int totalItems, int currentPage = 1, int pageSize = 10, int maxPages = 10)
         {
@@ -183,28 +183,156 @@ namespace Intex2ABBCAuthentication.Controllers
 
             IEnumerable<CarCrash> bigQuery;
 
-
+            //10000
             if (month != 0 && year == 0 && city == null && county == null && severity == 0)
             {
                 bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month select crash;
             }
+            //11000
             else if (month != 0 && year != 0 && city == null && county == null && severity == 0)
             {
                 bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year select crash;
             }
+            //111000
             else if (month != 0 && year != 0 && city != null && county == null && severity == 0)
             {
                 bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year && crash.city == city select crash;
             }
+            //11110
             else if (month != 0 && year != 0 && city != null && county != null && severity == 0)
             {
                 bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year && crash.city == city && crash.county_name == county select crash;
             }
-            else //(month != 0 || year != 0 || city != null || county != null || severity != 0)
+            //11111
+            else if (month != 0 && year != 0 && city != null && county != null && severity != 0)
             {
                 bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year && crash.city == city && crash.county_name == county && crash.crash_severity_id == severity select crash;
             }
-
+            //01000
+            else if (month == 0 && year != 0 && city == null && county == null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Year == year && crash.city == city && crash.county_name == county && crash.crash_severity_id == severity select crash;
+            }
+            //01100
+            else if (month == 0 && year != 0 && city != null && county == null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Year == year && crash.city == city select crash;
+            }
+            //01110
+            else if (month == 0 && year != 0 && city != null && county != null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Year == year && crash.city == city && crash.county_name == county select crash;
+            }
+            //01111
+            else if (month == 0 && year != 0 && city != null && county != null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Year == year && crash.city == city && crash.county_name == county && crash.crash_severity_id == severity select crash;
+            }
+            //00100
+            else if (month == 0 && year == 0 && city != null && county == null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.city == city select crash;
+            }
+            //00110
+            else if (month == 0 && year == 0 && city != null && county != null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.city == city && crash.county_name == county select crash;
+            }
+            //00111
+            else if (month == 0 && year == 0 && city != null && county != null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.city == city && crash.county_name == county && crash.crash_severity_id == severity select crash;
+            }
+            //00010
+            else if (month == 0 && year == 0 && city == null && county != null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.county_name == county select crash;
+            }
+            //00011
+            else if (month == 0 && year == 0 && city == null && county != null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.county_name == county && crash.crash_severity_id == severity select crash;
+            }
+            //00001
+            else if (month == 0 && year == 0 && city == null && county == null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_severity_id == severity select crash;
+            }
+            //10100
+            else if (month != 0 && year == 0 && city != null && county == null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.city == city select crash;
+            }
+            //10111
+            else if (month != 0 && year == 0 && city != null && county != null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.city == city && crash.county_name == county && crash.crash_severity_id == severity select crash;
+            }
+            //10011
+            else if (month != 0 && year == 0 && city == null && county != null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.county_name == county && crash.crash_severity_id == severity select crash;
+            }
+            //10001
+            else if (month != 0 && year == 0 && city == null && county == null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_severity_id == severity select crash;
+            }
+            //10101
+            else if (month != 0 && year == 0 && city != null && county == null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.city == city && crash.crash_severity_id == severity select crash;
+            }
+            //10010
+            else if (month != 0 && year == 0 && city == null && county != null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.county_name == county select crash;
+            }
+            //11001
+            else if (month != 0 && year != 0 && city == null && county == null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year && crash.crash_severity_id == severity select crash;
+            }
+            //11010
+            else if (month != 0 && year != 0 && city == null && county != null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year && crash.county_name == county select crash;
+            }
+            //11011
+            else if (month != 0 && year != 0 && city == null && county != null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year && crash.city == city && crash.county_name == county && crash.crash_severity_id == severity select crash;
+            }
+            //10110
+            else if (month != 0 && year == 0 && city != null && county != null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.city == city && crash.county_name == county select crash;
+            }
+            //11101
+            else if (month != 0 && year != 0 && city != null && county == null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Month == month && crash.crash_date.Year == year && crash.city == city && crash.crash_severity_id == severity select crash;
+            }
+            //01011
+            else if (month == 0 && year != 0 && city == null && county != null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Year == year && crash.county_name == county && crash.crash_severity_id == severity select crash;
+            }
+            //01001
+            else if (month == 0 && year != 0 && city == null && county == null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Year == year && crash.crash_severity_id == severity select crash;
+            }
+            //01010
+            else if (month == 0 && year != 0 && city == null && county != null && severity == 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.crash_date.Year == year && crash.county_name == county select crash;
+            }
+            //00101
+            else (month == 0 && year == 0 && city != null && county == null && severity != 0)
+            {
+                bigQuery = from crash in repo.Crashes where crash.city == city && crash.crash_severity_id == severity select crash;
+            }
             var monthQuery = from crash in repo.Crashes where crash.crash_date.Month == month select crash;
             var yearQuery = from crash in repo.Crashes where crash.crash_date.Year == year select crash;
             var cityQuery = from crash in repo.Crashes where crash.city == city select crash;
