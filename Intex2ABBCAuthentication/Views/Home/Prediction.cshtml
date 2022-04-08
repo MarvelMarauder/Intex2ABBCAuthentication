@@ -1,12 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Predictor";
+    string[] severity = {"No Injury", "Possible Minor Injury", "Suspected Minor Injury", "Suspected Major Injury", "Fatal"};
+    string[] description = { "Although a car accident took place, very luckily it resulted in no injuries.", "The accident was enough for there to be minor injuries, not enough for anyone to need to visit the hospital.", "This crash was enough for there to be minor to moderate injuries to those involved.", "Accidents of this severity result in multiple minor and perhaps even aggregious injuries to parties involved.", "Crashes in this category often result in fatalities." };
 }
 
 @model Intex2ABBCAuthentication.Models.CarCrash
 
 <form method="post">
-
+        <h1>Predictor Portal for Potential Policies</h1>
         <div class="container">
+            <div class="row">
+                <p>This Policy Portal serves as the main predictor for users to see what circumstances contribute to crash severity. After extensive 
+                analysis, we have found these following features to be those that will most often affect how bad a crash is likely to be. Use this 
+                tool to better understand where changes can and should be made in order to alleviate the toll of these and similar accidents.</p>
+            </div>
             <div class="row">
                 <div class="col-5">
 
@@ -253,16 +260,29 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-2">
-                    @if (@ViewBag.Pred.PredictedValue > 0)
-                    {
-                        <h1>Predicted Severity: @ViewBag.Pred.PredictedValue</h1>
-                    }
-                </div>
+                    <div class="col-2">
+                        @if (@ViewBag.Pred.PredictedValue > 0)
+                        {
+                            <div class="row">
+                                <h1>Predicted Severity: @Math.Round(ViewBag.Pred.PredictedValue)</h1>
+
+                                <h2 class="alert-primary text-center">@severity[(int)Math.Round(ViewBag.Pred.PredictedValue) - 1]</h2>
+                            </div>
+
+
+                            <div class="row flex-fill">
+                                <h3 class="container alert-dismissible">@description[(int)Math.Round(ViewBag.Pred.PredictedValue) - 1]</h3>
+                            </div>
+                        }
+
+                    </div>
         </div>
+            <div class="row">
+                <button class="btn-center btn-primary btn-lg col-2 float-right" type="submit">Submit</button>
+            </div>
       </div>
 
     <HERE></HERE>
 
-    <button class="btn-center btm-primary" type="submit">Submit</button>
+
   </form>
