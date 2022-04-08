@@ -20,9 +20,10 @@
 
     @if (User.Identity.IsAuthenticated == true)
     {
-        <a asp-controller="Home" asp-action="Details" asp-route-fieldid="@Model.Field1">Details</a>
-        <a asp-controller="Home" asp-action="EditCrash" asp-route-fieldid="@Model.Field1">Edit</a>
-        <a asp-controller="Home" asp-action="Delete" asp-route-fieldid="@Model.Field1">Delete</a>
+
+        <a asp-controller="Home" asp-action="EditCrash" asp-route-fieldid="@Model.Field1" class="col-2 btn btn-secondary">Edit</a>
+        <a asp-controller="Home" asp-action="Delete" asp-route-fieldid="@Model.Field1" class="col-2 btn btn-warning">Delete</a>
     }
+    <a asp-controller="Home" asp-action="Details" asp-route-fieldid="@Model.Field1" class="col-2 float-right btn btn-info">Details</a>
 
 </div>
