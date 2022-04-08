@@ -34,10 +34,13 @@
                                 <label asp-for="pedestrian_involved">Pedestrian</label>
                             </th>
                             <td>
-                                <input asp-for="pedestrian_involved" id="pedestrianYes" type="radio" value="1.0">
+                                <input asp-for="pedestrian_involved" id="pedestrianYes" type="radio" value="1">
                                 <label for="pedestrianYes">Yes</label>
-                                <input asp-for="pedestrian_involved" id="pedestrianNo" type="radio" value="0.0" checked>
+
                                 <label for="pedestrianNo">No</label>
+
+                                <input asp-for="pedestrian_involved" id="pedestrianNo" type="radio" value="0" checked>
+
                             </td>
                             <td>1%</td>
                         </tr>
@@ -47,10 +50,11 @@
                                 <label asp-for="bicyclist_involved">Bicyclist</label>
                             </th>
                             <td>
-                                <input asp-for="bicyclist_involved" id="bikeYes" type="radio" value="1.0" class="custom-radio">
+                                <input asp-for="bicyclist_involved" id="bikeYes" type="radio" value="1" class="custom-radio">
                                 <label for="bikeYes">Yes</label>
-                                <input asp-for="bicyclist_involved" id="bikeNo" type="radio" value="0.0" checked>
+
                                 <label for="bikeNo">No</label>
+                                <input asp-for="bicyclist_involved" id="bikeNo" type="radio" value="0" checked>
                             </td>
                             <td>1%</td>
                         </tr>
@@ -61,10 +65,12 @@
 
                             </th>
                             <td>
-                                <input asp-for="motorcycle_involved" id="motorcycleYes" type="radio" value="1.0">
+                                <input asp-for="motorcycle_involved" id="motorcycleYes" type="radio" value="1">
                                 <label for="motorcycleYes">Yes</label>
-                                <input asp-for="motorcycle_involved" id="motorcycleNo" type="radio" value="0.0" checked>
+
                                 <label for="motorcycleNo">No</label>
+                                <input asp-for="motorcycle_involved" id="motorcycleNo" type="radio" value="0" checked>
+
                             </td>
                             <td>2%</td>
                         </tr>
@@ -74,10 +80,12 @@
                                 <label asp-for="overturn_rollover">Rollover</label>
                             </th>
                             <td>
-                                <input asp-for="overturn_rollover" id="rolloverYes" type="radio" value="1.0">
+                                <input asp-for="overturn_rollover" id="rolloverYes" type="radio" value="1">
                                 <label for="rolloverYes">Yes</label>
-                                <input asp-for="overturn_rollover" id="rolloverNo" type="radio" value="0.0" checked>
+
                                 <label for="rolloverNo">No</label>
+                                <input asp-for="overturn_rollover" id="rolloverNo" type="radio" value="0" checked>
+
                             </td>
                             <td>3%</td>
                         </tr>
@@ -87,10 +95,11 @@
                                 <label asp-for="unrestrained">Unrestrained</label>
                             </th>
                             <td>
-                                <input asp-for="unrestrained" id="unrestrainedYes" type="radio" value="1.0">
+                                <input asp-for="unrestrained" id="unrestrainedYes" type="radio" value="1">
                                 <label for="unrestrainedYes">Yes</label>
-                                <input asp-for="unrestrained" id="unrestrainedNo" type="radio" value="0.0" checked>
+
                                 <label for="unrestrainedNo">No</label>
+                                <input asp-for="unrestrained" id="unrestrainedNo" type="radio" value="0" checked>
                             </td>
                             <td>2%</td>
                         </tr>
@@ -101,10 +110,11 @@
 
                             </th>
                             <td>
-                                <input asp-for="improper_restraint" id="improperYes" type="radio" value="1.0">
+                                <input asp-for="improper_restraint" id="improperYes" type="radio" value="1">
                                 <label for="improperYes">Yes</label>
-                                <input asp-for="improper_restraint" id="improperNo" type="radio" value="0.0" checked>
+                                <input asp-for="improper_restraint" id="improperNo" type="radio" value="0" checked>
                                 <label for="improperNo">No</label>
+
                             </td>
                             <td>2%</td>
                         </tr>
@@ -114,10 +124,11 @@
                                 <label asp-for="dui">DUI</label>
                             </th>
                             <td>
-                                <input asp-for="dui" id="duiYes" type="radio" value="1.0">
+                                <input asp-for="dui" id="duiYes" type="radio" value="1">
                                 <label for="duiYes">Yes</label>
-                                <input asp-for="dui" id="duiNo" type="radio" value="0.0" checked>
+                                <input asp-for="dui" id="duiNo" type="radio" value="0" checked>
                                 <label for="duiNo">No</label>
+
                             </td>
                             <td>3%</td>
                         </tr>
@@ -126,10 +137,11 @@
                                 <label asp-for="drowsy_driving">Drowsy</label>
                             </th>
                             <td>
-                                <input asp-for="drowsy_driving" id="drowsyYes" type="radio" value="1.0">
+                                <input asp-for="drowsy_driving" id="drowsyYes" type="radio" value="1">
                                 <label for="drowsyYes">Yes</label>
-                                <input asp-for="drowsy_driving" id="drowsyNo" type="radio" value="0.0" checked>
+                                <input asp-for="drowsy_driving" id="drowsyNo" type="radio" value="0" checked>
                                 <label for="drowsyNo">No</label>
+
                             </td>
                             <td>2%</td>
                         </tr>
@@ -139,9 +151,9 @@
                                 <label asp-for="single_vehicle">Single Vehicle</label>
                             </th>
                             <td>
-                                <input asp-for="single_vehicle" id="singleYes" type="radio" value="1.0">
+                                <input asp-for="single_vehicle" id="singleYes" type="radio" value="1">
                                 <label for="singleYes">Yes</label>
-                                <input asp-for="single_vehicle" id="singleNo" type="radio" value="0.0" checked>
+                                <input asp-for="single_vehicle" id="singleNo" type="radio" value="0" checked>
                                 <label for="singleNo">No</label>
                             </td>
                             <td>24%</td>
@@ -167,9 +179,9 @@
                                 <label asp-for="roadway_departure">Roadway Departure</label>
                             </th>
                             <td>
-                                <input asp-for="roadway_departure" id="departureYes" type="radio" value="1.0">
+                                <input asp-for="roadway_departure" id="departureYes" type="radio" value="1">
                                 <label for="departureYes">Yes</label>
-                                <input asp-for="roadway_departure" id="departureNo" type="radio" value="0.0" checked>
+                                <input asp-for="roadway_departure" id="departureNo" type="radio" value="0" checked>
                                 <label for="departureNo">No</label>
                             </td>
                             <td>16%</td>
@@ -181,9 +193,9 @@
 
                             </th>
                             <td>
-                                <input asp-for="intersection_related" id="intersectionYes" type="radio" value="1.0">
+                                <input asp-for="intersection_related" id="intersectionYes" type="radio" value="1">
                                 <label for="intersectionYes">Yes</label>
-                                <input asp-for="intersection_related" id="intersectionNo" type="radio" value="0.0" checked>
+                                <input asp-for="intersection_related" id="intersectionNo" type="radio" value="0" checked>
                                 <label for="intersectionNo">No</label>
                             </td>
                             <td>39%</td>
@@ -194,9 +206,9 @@
                                 <label asp-for="distracted_driving">Distracted</label>
                             </th>
                             <td>
-                                <input asp-for="distracted_driving" id="distractedYes" type="radio" value="1.0">
+                                <input asp-for="distracted_driving" id="distractedYes" type="radio" value="1">
                                 <label for="distractedYes">Yes</label>
-                                <input asp-for="distracted_driving" id="distractedNo" type="radio" value="0.0" checked>
+                                <input asp-for="distracted_driving" id="distractedNo" type="radio" value="0" checked>
                                 <label for="distractedNo">No</label>
                             </td>
                             <td>9%</td>
@@ -207,9 +219,9 @@
                                 <label asp-for="wild_animal_related">Wild Animal</label>
                             </th>
                             <td>
-                                <input asp-for="wild_animal_related" id="wildYes" type="radio" value="1.0">
+                                <input asp-for="wild_animal_related" id="wildYes" type="radio" value="1">
                                 <label for="wildYes">Yes</label>
-                                <input asp-for="wild_animal_related" id="wildNo" type="radio" value="0.0" checked>
+                                <input asp-for="wild_animal_related" id="wildNo" type="radio" value="0" checked>
                                 <label for="wildNo">No</label>
                             </td>
                             <td>4%</td>
@@ -220,9 +232,9 @@
                                 <label asp-for="older_driver_involved">Older Driver</label>
                             </th>
                             <td>
-                                <input asp-for="older_driver_involved" id="oldYes" type="radio" value="1.0">
+                                <input asp-for="older_driver_involved" id="oldYes" type="radio" value="1">
                                 <label for="oldYes">Yes</label>
-                                <input asp-for="older_driver_involved" id="oldNo" type="radio" value="0.0" checked>
+                                <input asp-for="older_driver_involved" id="oldNo" type="radio" value="0" checked>
                                 <label for="oldNo">No</label>
                             </td>
                             <td>13%</td>
@@ -233,9 +245,9 @@
                                 <label asp-for="commercial_motor_veh_involved">Commercial Vehicle</label>
                             </th>
                             <td>
-                                <input asp-for="commercial_motor_veh_involved" id="commercialYes" type="radio" value="1.0">
+                                <input asp-for="commercial_motor_veh_involved" id="commercialYes" type="radio" value="1">
                                 <label for="commercialYes">Yes</label>
-                                <input asp-for="commercial_motor_veh_involved" id="commercialNo" type="radio" value="0.0" checked>
+                                <input asp-for="commercial_motor_veh_involved" id="commercialNo" type="radio" value="0" checked>
                                 <label for="commercialNo">No</label>
                             </td>
                             <td>6%</td>
@@ -248,9 +260,9 @@
                                 <label asp-for="domestic_animal_related">Domestic Animal</label>
                             </th>
                             <td>
-                                <input asp-for="domestic_animal_related" id="domesticYes" type="radio" value="1.0">
+                                <input asp-for="domestic_animal_related" id="domesticYes" type="radio" value="1">
                                 <label for="domesticYes">Yes</label>
-                                <input asp-for="domestic_animal_related" id="domesticNo" type="radio" value="0.0" checked>
+                                <input asp-for="domestic_animal_related" id="domesticNo" type="radio" value="0" checked>
                                 <label for="domesticNo">No</label>
                             </td>
                             <td>1%</td>
@@ -261,9 +273,9 @@
                                 <label asp-for="work_zone_related">Work Zone</label>
                             </th>
                             <td>
-                                <input asp-for="work_zone_related" id="workYes" type="radio" value="1.0">
+                                <input asp-for="work_zone_related" id="workYes" type="radio" value="1">
                                 <label for="workYes">Yes</label>
-                                <input asp-for="work_zone_related" id="workNo" type="radio" value="0.0" checked>
+                                <input asp-for="work_zone_related" id="workNo" type="radio" value="0" checked>
                                 <label for="workNo">No</label>
                             </td>
                             <td>5%</td>
@@ -274,9 +286,9 @@
                                 <label asp-for="night_dark_condition">Night</label>
                             </th>
                             <td>
-                                <input asp-for="night_dark_condition" id="nightYes" type="radio" value="1.0">
+                                <input asp-for="night_dark_condition" id="nightYes" type="radio" value="1">
                                 <label for="nightYes">Yes</label>
-                                <input asp-for="night_dark_condition" id="nightNo" type="radio" value="0.0" checked>
+                                <input asp-for="night_dark_condition" id="workNo" type="radio" value="0" checked>
                                 <label for="nightNo">No</label>
                             </td>
                             <td>25%</td>

@@ -8,5 +8,6 @@ namespace Intex2ABBCAuthentication.Models
     public class Prediction
     {
         public float PredictedValue { get; set; }
+        public CarCrash crash { get; set; }
     }
 }

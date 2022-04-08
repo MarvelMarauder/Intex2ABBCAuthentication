@@ -51,7 +51,8 @@ namespace Intex2ABBCAuthentication.Controllers
         [HttpGet]
         public IActionResult Prediction(Prediction prediction)
         {
-            var stuff = new Prediction { PredictedValue = (float)0.0 };
+             var   stuff = new Prediction { PredictedValue = (float)0.0 };
+
             ViewBag.Pred = stuff;
             return View();
         }
@@ -63,7 +64,7 @@ namespace Intex2ABBCAuthentication.Controllers
                 NamedOnnxValue.CreateFromTensor("float_input", data.AsTensor())
                 });
             Tensor<float> score = result.First().AsTensor<float>();
-            var prediction = new Prediction { PredictedValue = score.First() };
+            var prediction = new Prediction { PredictedValue = score.First(), crash = data };
             result.Dispose();
 
             var stuff = prediction;
