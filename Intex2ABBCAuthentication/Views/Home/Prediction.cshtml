@@ -8,7 +8,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-4">
+                <div class="col-5">
 
                     <table class="table table-sm table-bordered table-striped">
 
@@ -110,12 +110,6 @@
                                     <label for="intersectionNo">No</label>
                                 </td>
                             </tr>
-                            </tbody>
-                        </table>
-                            </div>
-                            <div class="col-4">
-                                <table class="table table-sm table-bordered table-striped">
-                                    <tbody>
                             <tr>
                                 <th>
                                     <label asp-for="motorcycle_involved">Motorcycle?</label>
@@ -140,6 +134,13 @@
                                     <label for="nightNo">No</label>
                                 </td>
                             </tr>
+                        </tbody>
+                        </table>
+                            </div>
+                            <div class="col-5">
+                                <table class="table table-sm table-bordered table-striped">
+                                    <tbody>
+                            
 
                             <tr>
                                 <th>
@@ -252,7 +253,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-4">
+                <div class="col-2">
                     @if (@ViewBag.Pred.PredictedValue > 0)
                     {
                         <h1>Predicted Severity: @ViewBag.Pred.PredictedValue</h1>
