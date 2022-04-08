@@ -45,7 +45,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-dark bg-dark border-bottom box-shadow mb-5 py-4">
             <div class="container">
-                <a style="font-size:larger" class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index">CRASH</a>
+                <a style="font-size:larger" class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index"><span>CRASH</span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -57,16 +57,16 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item text-lg">
-                            <a class="nav-link text-light text-lg" asp-area="" asp-controller="Home" asp-action="Prediction">Predictor</a>
+                            <a class="nav-link text-light text-lg" asp-area="" asp-controller="Home" asp-action="Prediction">Policy Portal</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="SummaryData">Summary</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="SummaryData">Data</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Forecast">Forecast</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Forecast">Forcast</a>
                         </li>
                         @if (User.Identity.IsAuthenticated == true)
                         {
