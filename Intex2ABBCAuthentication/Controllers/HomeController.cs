@@ -329,10 +329,11 @@ namespace Intex2ABBCAuthentication.Controllers
                 bigQuery = from crash in repo.Crashes where crash.crash_date.Year == year && crash.county_name == county select crash;
             }
             //00101
-            else (month == 0 && year == 0 && city != null && county == null && severity != 0)
+            else
             {
                 bigQuery = from crash in repo.Crashes where crash.city == city && crash.crash_severity_id == severity select crash;
             }
+
             var monthQuery = from crash in repo.Crashes where crash.crash_date.Month == month select crash;
             var yearQuery = from crash in repo.Crashes where crash.crash_date.Year == year select crash;
             var cityQuery = from crash in repo.Crashes where crash.city == city select crash;
