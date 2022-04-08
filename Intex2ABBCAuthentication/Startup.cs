@@ -31,23 +31,23 @@ namespace Intex2ABBCAuthentication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
+            //services.Configure<CookiePolicyOptions>(options =>
+            //{
+            //    // This lambda determines whether user consent for non-essential 
+            //    // cookies is needed for a given request.
+            //    options.CheckConsentNeeded = context => false;
+            //    // requires using Microsoft.AspNetCore.Http;
+            //    options.MinimumSameSitePolicy = SameSiteMode.None;
+            //});
+
+            services.AddDbContext<ApplicationDbContext>(options =>
             {
-                // This lambda determines whether user consent for non-essential 
-                // cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                // requires using Microsoft.AspNetCore.Http;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.UseMySql(DbSecret.GetRDSConnectionString("first"));
             });
 
             services.AddDbContext<CrashContext>(options =>
             {
-                options.UseMySql(Configuration["ConnectionStrings:CrashConnection"]);
-            });
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseMySql(DbSecret.GetRDSConnectionString("second"));
             });
 
             services.AddScoped<ICrashRepository, EFCrashRepository>();

@@ -1,18 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Predictor";
+    string[] severity = { "No Injury", "Possible Injury", "Suspected Minor Injury", "Suspected Major Injury", "Fatal" };
+    string[] description = { "Luckily, no one was hurt during this crash.", "While there wasn't any major damage, some small injuries may have resulted from a crash similar to this one.", "The circumstances of this crash are highly likely to have resulted in more minor injuries.", "The severity of this crash has led to minor injuries, with a high possibility of severe injury to those involved.", "Tragically, a crash of this severity is likely to result in fatalities." };
 }
 
 @model Intex2ABBCAuthentication.Models.CarCrash
-@if (@ViewBag.Pred.PredictedValue > 0)
-{
-    <h1>Predicted Severity: @ViewBag.Pred.PredictedValue</h1>
-}
+
 <form method="post">
 
         <div class="container">
             <div class="row">
-                <div class="col-4"></div>
-                <div class="col-5 self-align-center">
+                <div class="col-5">
 
                     <table class="table table-sm table-bordered table-striped">
 
@@ -29,9 +27,6 @@
                                     <label for="bikeNo">No</label>
                                 </td>
                             </tr>
-
-
-
                             <tr>
                                 <th>
                                     <label asp-for="commercial_motor_veh_involved">Commercial Vehicle?</label>
@@ -94,9 +89,10 @@
 
                             <tr>
                                 <th>
+                                    <label asp-for="improper_restraint">Improper Restraint?</label>
+
                                 </th>
                                 <td>
-                                    <label asp-for="improper_restraint">Improper Restraint?</label>
                                     <input asp-for="improper_restraint" id="improperYes" type="radio" value="1.0">
                                     <label for="improperYes">Yes</label>
                                     <input asp-for="improper_restraint" id="improperNo" type="radio" value="0.0" checked>
@@ -106,21 +102,22 @@
 
                             <tr>
                                 <th>
+                                    <label asp-for="intersection_related">Intersection Related?</label>
+
                                 </th>
                                 <td>
-                                    <label asp-for="intersection_related">Intersection Related?</label>
                                     <input asp-for="intersection_related" id="intersectionYes" type="radio" value="1.0">
                                     <label for="intersectionYes">Yes</label>
                                     <input asp-for="intersection_related" id="intersectionNo" type="radio" value="0.0" checked>
                                     <label for="intersectionNo">No</label>
                                 </td>
                             </tr>
-
                             <tr>
                                 <th>
+                                    <label asp-for="motorcycle_involved">Motorcycle?</label>
+
                                 </th>
                                 <td>
-                                    <label asp-for="motorcycle_involved">Motorcycle?</label>
                                     <input asp-for="motorcycle_involved" id="motorcycleYes" type="radio" value="1.0">
                                     <label for="motorcycleYes">Yes</label>
                                     <input asp-for="motorcycle_involved" id="motorcycleNo" type="radio" value="0.0" checked>
@@ -140,120 +137,144 @@
                                 </td>
                             </tr>
 
-                            <tr>
-                                <th>
-                                    <label asp-for="older_driver_involved">Older Driver?</label>
-                                </th>
-                                <td>
-                                    <input asp-for="older_driver_involved" id="oldYes" type="radio" value="1.0">
-                                    <label for="oldYes">Yes</label>
-                                    <input asp-for="older_driver_involved" id="oldNo" type="radio" value="0.0" checked>
-                                    <label for="oldNo">No</label>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    <label asp-for="overturn_rollover">Rollover?</label>
-                                </th>
-                                <td>
-                                    <input asp-for="overturn_rollover" id="rolloverYes" type="radio" value="1.0">
-                                    <label for="rolloverYes">Yes</label>
-                                    <input asp-for="overturn_rollover" id="rolloverNo" type="radio" value="0.0" checked>
-                                    <label for="rolloverNo">No</label>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    <label asp-for="pedestrian_involved">Pedestrian?</label>
-                                </th>
-                                <td>
-                                    <input asp-for="pedestrian_involved" id="pedestrianYes" type="radio" value="1.0">
-                                    <label for="pedestrianYes">Yes</label>
-                                    <input asp-for="pedestrian_involved" id="pedestrianNo" type="radio" value="0.0" checked>
-                                    <label for="pedestrianNo">No</label>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    <label asp-for="roadway_departure">Roadway Departure?</label>
-                                </th>
-                                <td>
-                                    <input asp-for="roadway_departure" id="departureYes" type="radio" value="1.0">
-                                    <label for="departureYes">Yes</label>
-                                    <input asp-for="roadway_departure" id="departureNo" type="radio" value="0.0" checked>
-                                    <label for="departureNo">No</label>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    <label asp-for="single_vehicle">Single Vehicle?</label>
-                                </th>
-                                <td>
-                                    <input asp-for="single_vehicle" id="singleYes" type="radio" value="1.0">
-                                    <label for="singleYes">Yes</label>
-                                    <input asp-for="single_vehicle" id="singleNo" type="radio" value="0.0" checked>
-                                    <label for="singleNo">No</label>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    <label asp-for="teenage_driver_involved">Teenage Driver?</label>
-                                </th>
-                                <td>
-                                    <input asp-for="teenage_driver_involved" id="teenYes" type="radio" value="1.0">
-                                    <label for="teenYes">Yes</label>
-                                    <input asp-for="teenage_driver_involved" id="teenNo" type="radio" value="0.0" checked>
-                                    <label for="teenNo">No</label>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    <label asp-for="unrestrained">Unrestrained?</label>
-                                </th>
-                                <td>
-                                    <input asp-for="unrestrained" id="unrestrainedYes" type="radio" value="1.0">
-                                    <label for="unrestrainedYes">Yes</label>
-                                    <input asp-for="unrestrained" id="unrestrainedNo" type="radio" value="0.0" checked>
-                                    <label for="unrestrainedNo">No</label>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    <label asp-for="wild_animal_related">Wild Animal?</label>
-                                </th>
-                                <td>
-                                    <input asp-for="wild_animal_related" id="wildYes" type="radio" value="1.0">
-                                    <label for="wildYes">Yes</label>
-                                    <input asp-for="wild_animal_related" id="wildNo" type="radio" value="0.0" checked>
-                                    <label for="wildNo">No</label>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    <label asp-for="work_zone_related">Work Zone?</label>
-                                </th>
-                                <td>
-                                    <input asp-for="work_zone_related" id="workYes" type="radio" value="1.0">
-                                    <label for="workYes">Yes</label>
-                                    <input asp-for="work_zone_related" id="workNo" type="radio" value="0.0" checked>
-                                    <label for="workNo">No</label>
-                                </td>
-                            </tr>
-
+                           
                         </tbody>
+                        </table>
+                            </div>
+                            <div class="col-5">
+                                <table class="table table-sm table-bordered table-striped">
+                                    <tbody>
+
+                                        <tr>
+                                            <th>
+                                                <label asp-for="older_driver_involved">Older Driver?</label>
+                                            </th>
+                                            <td>
+                                                <input asp-for="older_driver_involved" id="oldYes" type="radio" value="1.0">
+                                                <label for="oldYes">Yes</label>
+                                                <input asp-for="older_driver_involved" id="oldNo" type="radio" value="0.0" checked>
+                                                <label for="oldNo">No</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <label asp-for="overturn_rollover">Rollover?</label>
+                                            </th>
+                                            <td>
+                                                <input asp-for="overturn_rollover" id="rolloverYes" type="radio" value="1.0">
+                                                <label for="rolloverYes">Yes</label>
+                                                <input asp-for="overturn_rollover" id="rolloverNo" type="radio" value="0.0" checked>
+                                                <label for="rolloverNo">No</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>
+                                                <label asp-for="pedestrian_involved">Pedestrian?</label>
+                                            </th>
+                                            <td>
+                                                <input asp-for="pedestrian_involved" id="pedestrianYes" type="radio" value="1.0">
+                                                <label for="pedestrianYes">Yes</label>
+                                                <input asp-for="pedestrian_involved" id="pedestrianNo" type="radio" value="0.0" checked>
+                                                <label for="pedestrianNo">No</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>
+                                                <label asp-for="roadway_departure">Roadway Departure?</label>
+                                            </th>
+                                            <td>
+                                                <input asp-for="roadway_departure" id="departureYes" type="radio" value="1.0">
+                                                <label for="departureYes">Yes</label>
+                                                <input asp-for="roadway_departure" id="departureNo" type="radio" value="0.0" checked>
+                                                <label for="departureNo">No</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>
+                                                <label asp-for="single_vehicle">Single Vehicle?</label>
+                                            </th>
+                                            <td>
+                                                <input asp-for="single_vehicle" id="singleYes" type="radio" value="1.0">
+                                                <label for="singleYes">Yes</label>
+                                                <input asp-for="single_vehicle" id="singleNo" type="radio" value="0.0" checked>
+                                                <label for="singleNo">No</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>
+                                                <label asp-for="teenage_driver_involved">Teenage Driver?</label>
+                                            </th>
+                                            <td>
+                                                <input asp-for="teenage_driver_involved" id="teenYes" type="radio" value="1.0">
+                                                <label for="teenYes">Yes</label>
+                                                <input asp-for="teenage_driver_involved" id="teenNo" type="radio" value="0.0" checked>
+                                                <label for="teenNo">No</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>
+                                                <label asp-for="unrestrained">Unrestrained?</label>
+                                            </th>
+                                            <td>
+                                                <input asp-for="unrestrained" id="unrestrainedYes" type="radio" value="1.0">
+                                                <label for="unrestrainedYes">Yes</label>
+                                                <input asp-for="unrestrained" id="unrestrainedNo" type="radio" value="0.0" checked>
+                                                <label for="unrestrainedNo">No</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>
+                                                <label asp-for="wild_animal_related">Wild Animal?</label>
+                                            </th>
+                                            <td>
+                                                <input asp-for="wild_animal_related" id="wildYes" type="radio" value="1.0">
+                                                <label for="wildYes">Yes</label>
+                                                <input asp-for="wild_animal_related" id="wildNo" type="radio" value="0.0" checked>
+                                                <label for="wildNo">No</label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>
+                                                <label asp-for="work_zone_related">Work Zone?</label>
+                                            </th>
+                                            <td>
+                                                <input asp-for="work_zone_related" id="workYes" type="radio" value="1.0">
+                                                <label for="workYes">Yes</label>
+                                                <input asp-for="work_zone_related" id="workNo" type="radio" value="0.0" checked>
+                                                <label for="workNo">No</label>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
                     </table>
                 </div>
+                            <div class="col-2">
+                                @if (@ViewBag.Pred.PredictedValue > 0)
+                                {
+                                    <div class="row">
+                                        <h1>Predicted Severity: @Math.Round(ViewBag.Pred.PredictedValue)</h1>
+
+                                        <h2 class="alert-primary text-center">@severity[(int)Math.Round(ViewBag.Pred.PredictedValue) - 1]</h2>
+                                    </div>
+                                    
+
+                                    <div class="row flex-fill">
+                                        <h3 class="container alert-dismissible">@description[(int)Math.Round(ViewBag.Pred.PredictedValue) - 1]</h3>
+                                    </div>
+                                }
+
+                            </div>
         </div>
       </div>
 
+    <HERE></HERE>
 
-    <button class="btn-center" type="submit">Submit</button>
+    <button class="btn-center btm-primary" type="submit">Submit</button>
   </form>
