@@ -19,7 +19,6 @@
         @if (@Model.crash_severity_id == 1.0)
         {
             <tr>
-                <td>
                 <th>Severity:</th>
                 <td>
                     No Injury
@@ -29,7 +28,6 @@
         @if (@Model.crash_severity_id == 2.0)
         {
             <tr>
-                <td>
                 <th>Severity:</th>
                 <td>
                     Possible Injury
@@ -39,7 +37,6 @@
         @if (@Model.crash_severity_id == 3.0)
         {
             <tr>
-                <td>
                 <th>Severity:</th>
                 <td>
                     Suspected Minor Injury
@@ -49,7 +46,6 @@
         @if (@Model.crash_severity_id == 4.0)
         {
             <tr>
-                <td>
                 <th>Severity:</th>
                 <td>
                     Suspected Major Injury
@@ -59,7 +55,6 @@
         @if (@Model.crash_severity_id == 5.0)
         {
             <tr>
-                <td>
                 <th>Severity:</th>
                 <td>
                     Fatal
@@ -105,7 +100,7 @@
 
         @if (Model.commercial_motor_veh_involved == 1.0)
         {
-            <tr><th>Commercial Vehicle Involement:</th><td>True</td></tr>
+            <tr><th>Commercial Vehicle Involvement:</th><td>True</td></tr>
         }
 
         @if (Model.pedestrian_involved == 1.0)
@@ -190,3 +185,13 @@
     </tbody>
 
     </table>
+<div class="row">
+    @if (User.Identity.IsAuthenticated == true)
+    {
+        <div class="col-6">
+            <a asp-controller="Home" asp-action="EditCrash" asp-route-fieldid="@Model.Field1" class="btn btn-secondary">Edit</a>
+            <a asp-controller="Home" asp-action="Delete" asp-route-fieldid="@Model.Field1" class="btn btn-primary">Delete</a>
+        </div>
+
+    }
+</div>
