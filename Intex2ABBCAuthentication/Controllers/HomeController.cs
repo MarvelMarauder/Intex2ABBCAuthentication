@@ -374,11 +374,11 @@ namespace Intex2ABBCAuthentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var i = repo.Crashes.Count()+8251;
+                var i = repo.Crashes.Max(x => x.Field1);
                 c.Field1 = i + 1;
                 c.crash_id = c.Field1;
                 repo.CreateCrash(c);
-                return View("EditAdd", c);
+                return View("SummaryData");
             }
             else //if invalid, send back to the form and see error messages
             {

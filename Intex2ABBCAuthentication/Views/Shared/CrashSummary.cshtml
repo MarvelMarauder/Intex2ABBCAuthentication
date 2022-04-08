@@ -4,10 +4,10 @@
 <div class="card card-outline-primary m-1 p-1 font-weight-bolder">
 
     <div class="p-1">
-        <h4>Crash on @Model.crash_date in @Model.city, UT</h4>
+        <h4>Crash on @Model.crash_date.Date in @Model.city, UT</h4>
         <h2>Crash ID: @Model.crash_id</h2>
 
-        <span class="badge badge-primary" style="float:right">
+        <span class="text-danger" style="float:right">
             Severity: @Model.crash_severity_id
         </span>
     </div>
@@ -18,12 +18,16 @@
         <li class="text-lg-left">Date: @Model.crash_date.Month/@Model.crash_date.Day/@Model.crash_date.Year</li>
     </ul>
 
-    @if (User.Identity.IsAuthenticated == true)
-    {
+    <div class="row">
+        @if (User.Identity.IsAuthenticated == true)
+        {
+            <div class="col-10">
+                <a asp-controller="Home" asp-action="EditCrash" asp-route-fieldid="@Model.Field1" class="btn btn-primary">Edit</a>
+                <a asp-controller="Home" asp-action="Delete" asp-route-fieldid="@Model.Field1" class="btn btn-warning">Delete</a>
+            </div>
 
-        <a asp-controller="Home" asp-action="EditCrash" asp-route-fieldid="@Model.Field1" class="col-2 btn btn-secondary">Edit</a>
-        <a asp-controller="Home" asp-action="Delete" asp-route-fieldid="@Model.Field1" class="col-2 btn btn-warning">Delete</a>
-    }
-    <a asp-controller="Home" asp-action="Details" asp-route-fieldid="@Model.Field1" class="col-2 float-right btn btn-info">Details</a>
+        }
+        <a asp-controller="Home" asp-action="Details" asp-route-fieldid="@Model.Field1" class="btn btn-info col-2 float-right">Details</a>
+    </div>
 
 </div>
