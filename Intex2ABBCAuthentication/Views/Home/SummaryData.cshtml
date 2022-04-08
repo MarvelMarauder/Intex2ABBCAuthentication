@@ -1,26 +1,21 @@
-﻿@model Intex2ABBCAuthentication.Models.ViewModels.CrashViewModel
+﻿
+@{
+    ViewData["Title"] = "Data";
+}
+@model Intex2ABBCAuthentication.Models.ViewModels.CrashViewModel
 <br />
 <br />
 
 <body>
     <div>
-    <div class="row">
-        <div class="container">
-            <div class="col-3">
-                <h3>Crashes List</h3>
-            </div>
-
-            <div class="col-9 float-right">
-                <div page-turn="@Model.PageInfo" page-action="SummaryData"
-                     page-class="btn" page-class-normal="bg-light"
-                     page-class-selected="btn-primary" class="btn-group pull-right m-1"
-                     page-class-enabled="true">
-
+        <div class="row">
+            <div class="container">
+                <div class="col-3">
+                    <h3>Crashes List</h3>
                 </div>
+
             </div>
-            
         </div>
-    </div>
         <div class="row">
             <div class="col-3">
                 <form asp-action="SummaryData" method="post">
@@ -31,13 +26,13 @@
                     </div>
 
                     @*<label>Year</label>
-                <input name="y" />*@
+                        <input name="y" />*@
 
 
                     @*<div class="form-group">
-                    <label for="m">Month</label>
-                    <input type="text" class="form-control" id="m" name="m" aria-describedby="emailHelp" placeholder="Select Month">
-                </div>*@
+                            <label for="m">Month</label>
+                            <input type="text" class="form-control" id="m" name="m" aria-describedby="emailHelp" placeholder="Select Month">
+                        </div>*@
 
                     <div class="form-group">
                         <label for="m">Month</label>
@@ -58,7 +53,7 @@
                         </select>
                     </div>
                     @*<label>Month</label>
-                <input name="m" />*@
+                        <input name="m" />*@
 
                     <div class="form-group">
                         <label for="c">City</label>
@@ -66,7 +61,7 @@
                     </div>
 
                     @*<label>City</label>
-                <input name="c" />*@
+                        <input name="c" />*@
 
                     <div class="form-group">
                         <label for="co">County</label>
@@ -74,13 +69,13 @@
                     </div>
 
                     @*<label>County</label>
-                <input name="co" />*@
+                        <input name="co" />*@
 
 
                     @*<div class="form-group">
-                    <label for="s">Severity</label>
-                    <input type="text" class="form-control" id="s" name="s" aria-describedby="emailHelp" placeholder="Enter Severity">
-                </div>*@
+                            <label for="s">Severity</label>
+                            <input type="text" class="form-control" id="s" name="s" aria-describedby="emailHelp" placeholder="Enter Severity">
+                        </div>*@
                     <div class="form-group">
                         <label for="s">Severity</label>
                         <select name="s" class="form-select" aria-label="Default select example">
@@ -93,7 +88,7 @@
                         </select>
                     </div>
                     @*<label>Severity</label>
-                <input name="s" />*@
+                        <input name="s" />*@
 
                     <br />
                     <div class="float-end">
@@ -107,11 +102,21 @@
             {
                 <partial name="CrashSummary" model="c" />
             }
+
+                <div class="col-9 float-left">
+                    <div page-turn="@Model.PageInfo" page-action="SummaryData"
+                         page-class="btn" page-class-normal="bg-light"
+                         page-class-selected="btn-primary" class="btn-group pull-right m-1"
+                         page-class-enabled="true">
+
+                    </div>
+                </div>
             </div>
-            <div class="col-1"></div>
+
+
         </div>
-        </div>
-        
+    </div>
+
 
 
 </body>

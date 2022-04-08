@@ -15,40 +15,49 @@
         <div class="container">
 
             <div class="section-title" data-aos="zoom-in">
-                <h2>Our Mission</h2>
+            <h2>Our Mission</h2>
+            <br />
+            <div class="container">
                 <h4>Provide accessible, searchable data on crashes.</h4>
                 <h4>Inform about factors behind crash severity.</h4>
                 <h4>Help policymakers know where to focus their efforts.</h4>
                 <br />
+            </div>
                 <h3><span>Website Features</span></h3>
             </div>
 
             <div class="row">
 
                 <div class="col-lg-4">
-                    <div class="box" data-aos="fade-up">
-                        <span>01</span>
-                        <h4>Policy Portal Predictor</h4>
-                        <p>Calculate hypothetical crash severity and learn about the factors behind deadly crashes</p>
-                        <br />
-                    </div>
+                    <a asp-area="" asp-controller="Home" asp-action="Prediction">
+                        <div class="box" data-aos="fade-up">
+                            <span>01</span>
+                            <h4>Policy Portal Predictor</h4>
+                            <p>Calculate hypothetical crash severity and learn about the factors behind deadly crashes</p>
+                            <br />
+                        </div>
+                    </a>
                 </div>
 
                 <div class="col-lg-4 mt-4 mt-lg-0">
-                    <div class="box" data-aos="fade-up" data-aos-delay="100">
-                        <span>02</span>
-                        <h4>Data Repository</h4>
-                        <p>Filterable data from all car crashes in Utah from 2016 to 2019 </p>
-                        <br />
-                    </div>
+                    <a asp-area="" asp-controller="Home" asp-action="SummaryData">
+                        <div class="box" data-aos="fade-up" data-aos-delay="100">
+                            <span>02</span>
+                            <h4>Data Repository</h4>
+                            <p>Filterable data from all car crashes in Utah from 2016 to 2019 </p>
+                            <br />
+                        </div>
+                    </a>
                 </div>
 
                 <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
-                    <div class="box">
-                        <span>03</span>
-                        <h4>Future Forecasts</h4>
-                        <p>Check out the impact of policy changes. Input a percentage change for a feature and see how average severity is affected. </p>
-                    </div>
+                    <a asp-area="" asp-controller="Home" asp-action="Forecast">
+                        <div class="box">
+                            <span>03</span>
+                            <h4>Future Forecasts</h4>
+                            <p>Check out the impact of policy changes. Input a percentage change for a feature and see how average severity is affected. </p>
+                        </div>
+                    </a>
                 </div>
 
             </div>
@@ -70,24 +79,25 @@
                         <h4>About the Data</h4>
                         <h3>Using history to build a safer future</h3>
                         <p>
-                            The data for the information on this website is pulled from all crashes in Utah from 2016 to 2019.
-                            Crashes have been increasing in Utah from year to year, with the greatest increase in automobile accidents
-                            happening in the last few years. The data that we have access to has been used to build a model that predicts
-                            the severity of crashes given certain crashes, and gives us the ability to understand better the factors that contribute
+                            The information incorporated in this website is pulled from the UDOT Traffic & Safety Division database for all reported crashes in Utah from 2016 to 2019.
+                            Crashes have been steadily increasing in Utah in recent years with a sharp uptick in the last two years since the pandemic began. 
+                            The data displayed in this site has been used to build a model that predicts
+                            the severity of crashes with certain feature and gives the user the ability to better understand the factors contributing
                             to this problem.
                         </p>
                         </br>
                         <p>
-                            Both lawmakers and citizens alike should feel comfortable to use CRASH to learn about vehicle safety. The end
+                            Both lawmakers and citizens alike should feel comfortable using CRASH to learn about vehicle safety. The end
                             goal for all is to reduce vehicle related deaths as much as possible. Along with a predicting feature, for administrators
                             we have have added the capability to record new crashes as well as edit the crashes that are already there.
+
                         </p>
                     </div>
 
                     <div class="icon-box" data-aos="fade-up">
                         <div class="icon"><i class="bx bx-fingerprint"></i></div>
                         <h4 class="title"><a href="">Authenticated Users</a></h4>
-                        <p class="description">Authorized and authenticated users are able to access add, edit and delete functionalities. They also have the ability to register new users.</p>
+                        <p class="description">Authorized and authenticated users are able to access add, edit and delete accidents. Administrators also have the ability to register new users.</p>
                     </div>
 
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
@@ -99,7 +109,7 @@
                     <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
                         <div class="icon"><i class="bx bx-alarm"></i></div>
                         <h4 class="title"><a href="">Understand Warning Signs</a></h4>
-                        <p class="description">As with most data, our goal is to understand the factors that lead to certain events. With our predictions and forecasting models, all users can better understand factors that increase and decrease car crashes and their severity.</p>
+                        <p class="description">As with most data, our goal is to understand the factors that lead to certain events. With our predictions and forecasting models, all users can better understand factors that contribute to car crashes and affect their severity.</p>
                     </div>
 
                 </div>
