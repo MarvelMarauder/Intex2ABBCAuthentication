@@ -3,15 +3,12 @@
 }
 
 @model Intex2ABBCAuthentication.Models.CarCrash
-@if (@ViewBag.Pred.PredictedValue > 0)
-{
-    <h1>Predicted Severity: @ViewBag.Pred.PredictedValue</h1>
-}
+
 <form method="post">
 
         <div class="container">
             <div class="row">
-                <div class="col-4 self-align-center">
+                <div class="col-4">
 
                     <table class="table table-sm table-bordered table-striped">
 
@@ -28,9 +25,6 @@
                                     <label for="bikeNo">No</label>
                                 </td>
                             </tr>
-
-
-
                             <tr>
                                 <th>
                                     <label asp-for="commercial_motor_veh_involved">Commercial Vehicle?</label>
@@ -93,6 +87,8 @@
 
                             <tr>
                                 <th>
+                                    <label asp-for="improper_restraint">Improper Restraint?</label>
+
                                 </th>
                                 <td>
                                     <label asp-for="improper_restraint">Improper Restraint?</label>
@@ -105,6 +101,8 @@
 
                             <tr>
                                 <th>
+                                    <label asp-for="intersection_related">Intersection Related?</label>
+
                                 </th>
                                 <td>
                                     <label asp-for="intersection_related">Intersection Related?</label>
@@ -114,12 +112,18 @@
                                     <label for="intersectionNo">No</label>
                                 </td>
                             </tr>
-
+                            </tbody>
+                        </table>
+                            </div>
+                            <div class="col-4">
+                                <table class="table table-sm table-bordered table-striped">
+                                    <tbody>
                             <tr>
                                 <th>
+                                    <label asp-for="motorcycle_involved">Motorcycle?</label>
+
                                 </th>
                                 <td>
-                                    <label asp-for="motorcycle_involved">Motorcycle?</label>
                                     <input asp-for="motorcycle_involved" id="motorcycleYes" type="radio" value="1.0">
                                     <label for="motorcycleYes">Yes</label>
                                     <input asp-for="motorcycle_involved" id="motorcycleNo" type="radio" value="0.0" checked>
@@ -249,6 +253,12 @@
 
                         </tbody>
                     </table>
+                </div>
+                <div class="col-4">
+                    @if (@ViewBag.Pred.PredictedValue > 0)
+                    {
+                        <h1>Predicted Severity: @ViewBag.Pred.PredictedValue</h1>
+                    }
                 </div>
         </div>
       </div>
