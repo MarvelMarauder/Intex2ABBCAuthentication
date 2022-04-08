@@ -421,6 +421,13 @@ namespace Intex2ABBCAuthentication.Controllers
             return RedirectToAction("SummaryData");
         }
 
+        [HttpGet]
+        public IActionResult Forecast()
+        {
+            //var blah = repo.Crashes.Single(x => x.Field1 == fieldid);
+            return View();
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

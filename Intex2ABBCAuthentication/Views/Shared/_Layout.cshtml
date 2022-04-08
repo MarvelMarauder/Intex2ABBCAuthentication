@@ -65,11 +65,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="SummaryData">Summary</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Forecast">Forecast</a>
+                        </li>
                         @if (User.Identity.IsAuthenticated == true)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="AddCrash">Add Crash</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="AddCrash">Add Crash</a>
+                        </li>
                         }
 
                     </ul>
